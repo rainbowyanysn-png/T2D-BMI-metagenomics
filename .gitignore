@@ -1,0 +1,9 @@
+/output/
+/data_derived/
+/reference_results/
+/renv/library/
+/renv/staging/
+/.Rhistory
+/.RData
+/.Renviron
+/config/local_*.yml

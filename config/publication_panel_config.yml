@@ -1,0 +1,48 @@
+schema_version: 3
+font_family: Times New Roman
+font_size: 8
+effect_colours: {Positive: '#B2182B', Negative: '#2166AC', NS: '#E0E0E0'}
+phylum_colours: {Firmicutes: '#376795', Bacteroidetes: '#72BCD5', Actinobacteria: '#FFE6B7', Proteobacteria: '#F7AA58', Other: '#D0CFCA'}
+species_palette: ['#376795', '#528FAD', '#72BCD5', '#AADCE0', '#FFE6B7', '#FFD06F', '#F7AA58', '#EF8A47', '#D0CFCA']
+half_width_mm: 90
+full_width_mm: 180
+default_height_mm: 85
+pathway_candidate_limit: {genus: 20, species: 30}
+reml_heatmap:
+  selection: all_13_overall_then_top12_NT2D_only_then_top10_T2D_internal
+  max_rows: 35
+  order: padj_then_raw_P_then_feature
+  full_supplementary: false
+volcano_labels:
+  species_maximum: 10
+  species_per_direction: 5
+  pathway_maximum: 12
+  pathway_per_direction: 6
+  seed: 20261021
+  order: q_then_descending_absolute_coefficient_then_feature
+expected_panels: {source: final_publication_manifest}
+expected_workbooks: 16
+forest:
+  selection: direction_concordance_cohort_count_I2_maxSE_padj_pathway
+source_review:
+  cohort_file: data_raw/source_review/cohort_sources_verified.csv
+  confounder_file: data_raw/source_review/confounders_verified.csv
+require_all_panels: true
+panel_registry: config/publication_panels_manifest.csv
+exclude_publication_modules: [extreme]
+
+sensitivity_scatter:
+  width_mm: 234
+  height_mm: 115
+  base_size_pt: 11
+  title_size_pt: 14
+  axis_title_size_pt: 12
+  axis_text_size_pt: 10
+  strip_text_size_pt: 11
+  legend_title_size_pt: 11
+  legend_text_size_pt: 10
+  annotation_size_mm: 3.2
+
+# Higher raster resolution for the dense, small-label Sankey only.
+tiff_dpi_by_figure:
+  SFig3_taxon_pathway_assignment_Sankey: 600

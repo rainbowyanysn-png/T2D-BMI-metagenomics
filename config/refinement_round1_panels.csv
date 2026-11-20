@@ -1,0 +1,14 @@
+figure_id,manuscript_figure,panel,plot_family,input_file,width_mm,height_mm,output_filename,status,metric,title
+Fig2A_BMI25_Shannon,Figure 2,A,alpha_total,Fig2A_BMI25_Shannon.csv,90,85,Fig2A_BMI25_Shannon,CODE_READY_NOT_RENDERED,Shannon,Overall Alpha Diversity (Shannon)
+Fig2B_BMI25_Shannon,Figure 2,B,alpha_four,Fig2B_BMI25_Shannon.csv,90,85,Fig2B_BMI25_Shannon,CODE_READY_NOT_RENDERED,Shannon,Alpha Diversity (Shannon Index)
+Fig2C_BMI25_raw_Aitchison,Figure 2,C,ordination_total,Fig2C_BMI25_raw_Aitchison.csv,110,85,Fig2C_BMI25_raw_Aitchison,CODE_READY_NOT_RENDERED,,PCoA: T2D vs Control
+Fig2D_BMI25_raw_Aitchison,Figure 2,D,ordination_four,Fig2D_BMI25_raw_Aitchison.csv,110,85,Fig2D_BMI25_raw_Aitchison,CODE_READY_NOT_RENDERED,,PCoA: BMI25 Groups
+Fig2E_BMI25_cohort_PERMANOVA,Figure 2,E,cohort_permanova,Fig2E_BMI25_cohort_PERMANOVA.csv,180,85,Fig2E_BMI25_cohort_PERMANOVA,CODE_READY_NOT_RENDERED,,Cohort-specific PERMANOVA
+SFig1A_BMI25_richness,Supplementary Figure 1,A,alpha_total,SFig1A_BMI25_richness.csv,90,85,SFig1A_BMI25_richness,CODE_READY_NOT_RENDERED,Richness,Overall Alpha Diversity (Richness)
+SFig1B_BMI25_shannon,Supplementary Figure 1,B,alpha_cohort,SFig1B_BMI25_shannon.csv,180,112.5,SFig1B_BMI25_shannon,CODE_READY_NOT_RENDERED,Shannon,Shannon Diversity by Cohort
+SFig1C_BMI25_richness,Supplementary Figure 1,C,alpha_cohort,SFig1C_BMI25_richness.csv,180,112.5,SFig1C_BMI25_richness,CODE_READY_NOT_RENDERED,Richness,Species Richness by Cohort
+SFig1D_BMI25_richness,Supplementary Figure 1,D,alpha_four,SFig1D_BMI25_richness.csv,90,85,SFig1D_BMI25_richness,CODE_READY_NOT_RENDERED,Richness,Alpha Diversity (Richness)
+SFig1F_BMI25_ComBat_descriptive,Supplementary Figure 1,E,combat_total,SFig1F_BMI25_ComBat_descriptive.csv,110,85,SFig1F_BMI25_ComBat_descriptive,CODE_READY_NOT_RENDERED,,ComBat PCoA: T2D vs Control
+SFig1G_BMI25_ComBat_descriptive,Supplementary Figure 1,F,combat_four,SFig1G_BMI25_ComBat_descriptive.csv,110,85,SFig1G_BMI25_ComBat_descriptive,CODE_READY_NOT_RENDERED,,ComBat PCoA: BMI25 Groups
+SFig2A_BMI25_top_phylum_boxplots,Supplementary Figure 2,A,abundant_phylum,SFig2A_BMI25_top_phylum_boxplots.csv,180,47.5,SFig2A_BMI25_top_phylum_boxplots,CODE_READY_NOT_RENDERED,,
+SFig2B_BMI25_top_species_boxplots,Supplementary Figure 2,B,abundant_species,SFig2B_BMI25_top_species_boxplots.csv,180,90,SFig2B_BMI25_top_species_boxplots,CODE_READY_NOT_RENDERED,,

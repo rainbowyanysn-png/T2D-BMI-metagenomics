@@ -1,0 +1,103 @@
+project:
+  name: T2D_BMI_revision_publication_v3
+  seed: 20261021
+  alpha: 0.05
+  numeric_tolerance: 1.0e-08
+source_data:
+  provider: curatedMetagenomicData
+  curatedMetagenomicData_version: "3.16.1"
+  prefer_local_cache: true
+  allow_download_if_missing: true
+  download_max_attempts: 3
+  download_timeout_seconds: 900
+  resource_manifest: config/source_resources.csv
+  body_site: stool
+  disease_values: [T2D, control, healthy]
+  abundance_types: [relative_abundance, pathway_abundance]
+cohorts:
+  names: [KarlssonFH_2013, MetaCardis_2020_a, QinJ_2012, SankaranarayananK_2015, YuJ_2015]
+  min_samples_per_group: 5
+filters:
+  global_prevalence: 0.10
+  bmi25_cutoff: 25
+  bmi23_cutoff: 23
+  bmi23_cohorts: [QinJ_2012, YuJ_2015]
+models:
+  maaslin_normalization: TSS
+  maaslin_transform: LOG
+  primary_maaslin_standardize: true
+  interaction_maaslin_standardize: false
+  additive_maaslin_standardize: false
+  bmi23_maaslin_standardize: true
+  # User approved 2026-11-08: original BMI23 four-group DESeq2 ordering.
+  bmi23_pathway_levels: [Non_Overweight_Control, Non_Overweight_T2D, Overweight_Control, Overweight_T2D]
+  no_medication_maaslin_standardize: true
+  Maaslin2_version: "1.22.0"
+  primary_seed: 1234
+  additive_seed: 20261106
+  bmi25_interaction_seed: 20261021
+  continuous_interaction_seed: 20261022
+  additive_bmi_center: 27.9917737733506
+  additive_bmi_scale: 5
+  pathway_cohort_prevalence: 0.20
+  pathway_min_features: 10
+  pathway_size_factors: poscounts
+  pathway_dispersion_fit: local
+  pathway_meta_method: REML
+  diversity_permutations: 999
+  diversity_czm_warning: 0.80
+  diversity_czm_delete: true
+  primary_beta_rng_verified: false
+  bmi23_diversity_seed: 1234
+output:
+  retained_runs: true
+  figure_dpi: 300
+  font_size: 9
+  line_width: 0.35
+  label_seed: 20261021
+  tiff_compression: lzw
+  historical_collation: zh_CN
+
+abundant_taxa:
+  formula: "Abundance ~ analysis_group + age + sex + (1 | study_name)"
+  REML: true
+  pairwise_adjust: none
+  formal_adjust: BH
+  family_scope: taxonomic_level
+  expected_phylum: [Actinobacteria, Bacteroidetes, Firmicutes, Proteobacteria]
+  expected_species: [species.Alistipes.putredinis, species.Bacteroides.stercoris, species.Bacteroides.uniformis, species.Faecalibacterium.prausnitzii, species.Phocaeicola.dorei, species.Phocaeicola.vulgatus, species.Prevotella.copri, species.Ruminococcus.bromii]
+
+raw_aitchison:
+  approved: true
+  by: margin
+  permutations: 999
+  seed: 20261111
+  total_formula: "distance ~ age + sex + study_name + BMI + disease"
+  four_formula: "distance ~ age + sex + study_name + analysis_group"
+clinical_correlations:
+  n_features: 20
+  family_size: 60
+  method: spearman
+  exact: false
+  rho_absolute_tolerance: 0.000000002
+  probability_relative_tolerance: 0.000002
+  benchmarks:
+    - {feature: species.Roseburia.sp..CAG.303, trait: BMI, rho: -0.204898892, p: 1.0433718e-12, q: 6.2602309e-11}
+    - {feature: species.Lachnospira.eligens, trait: BMI, rho: -0.161741316, p: 2.1293612e-8, q: 4.2587224e-7}
+    - {feature: species.Anaerostipes.hadrus, trait: BMI, rho: -0.150418631, p: 1.9468307e-7, q: 2.3361969e-6}
+    - {feature: species.Eubacterium.sp..CAG.38, trait: BMI, rho: -0.143085601, p: 7.5012255e-7, q: 7.5012255e-6}
+    - {feature: species.Escherichia.coli, trait: BMI, rho: 0.033398980, p: 0.2504267, q: 0.3664781}
+    - {feature: species.Escherichia.coli, trait: age, rho: 0.040078228, p: 0.1677940, q: 0.2796567}
+pooled_pathway_maaslin:
+  seed: 20261111
+  fixed_effects: [disease, BMI, age, sex, study_name]
+  random_effects: []
+  study_reference_rule: most_frequent_cohort_via_categorical_references
+  normalization: TSS
+  transform: LOG
+  standardize: true
+  min_prevalence: 0.10
+  formal_q: qval
+  expected_n_tested: 5945
+  expected_full_model_significant: 1641
+  expected_target_BH_audit_significant: 1425

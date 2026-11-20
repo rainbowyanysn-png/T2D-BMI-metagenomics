@@ -1,0 +1,15 @@
+schema_version: 1
+production_ready: false
+admitted_modules: []
+clean_rc3_run_pending: true
+clean_run_pass: false
+independent_reference_comparison_pass: false
+manual_review_complete: false
+citation_and_license_complete: false
+
+final_integration_code_only: true
+new_modules_pending_clean_run: [species_loco]
+visual_freeze_pending_author_review: true
+
+candidate_version: RC4
+clean_rc4_run_pending: true

@@ -1,0 +1,41 @@
+figure_id,manuscript_figure,panel
+Fig1_workflow,Figure 1,
+Fig2A_BMI25_Shannon,Figure 2,A
+Fig2B_BMI25_Shannon,Figure 2,B
+Fig2C_BMI25_raw_Aitchison,Figure 2,C
+Fig2D_BMI25_raw_Aitchison,Figure 2,D
+Fig2E_BMI25_cohort_PERMANOVA,Figure 2,E
+Fig3A_BMI25_phylum_composition,Figure 3,A
+Fig3B_BMI25_species_composition,Figure 3,B
+Fig3C_BMI25_species_UpSet,Figure 3,C
+Fig3D_BMI25_top20_absolute_effect,Figure 3,D
+Fig3E_BMI25_species_effect_heatmap,Figure 3,E
+Fig4A_BMI25_species_volcano,Figure 4,A
+Fig4B_BMI25_species_volcano,Figure 4,B
+Fig4C_BMI25_species_volcano,Figure 4,C
+Fig4D_BMI25_species_volcano,Figure 4,D
+Fig4E_BMI25_species_volcano,Figure 4,E
+Fig4F_Spearman_clinical_heatmap,Figure 4,F
+Fig5A_MaAsLin2_overall_pathway_volcano,Figure 5,A
+Fig5B_MaAsLin2_genus_pathway_features,Figure 5,B
+Fig5C_MaAsLin2_species_pathway_features,Figure 5,C
+Fig6A_REML_pathway_overlap,Figure 6,A
+Fig6B_REML_pathway_effect_heatmap,Figure 6,B
+Fig6C1_REML_representative_forest,Figure 6,C1
+Fig6C2_REML_representative_forest,Figure 6,C2
+Fig6D_REML_functional_categories,Figure 6,D
+Fig7A_formal_interaction_families,Figure 7,A
+Fig7B_additive_BMI_forest,Figure 7,B
+Fig7C_additive_effect_scatter,Figure 7,C
+Fig7D_association_summary,Figure 7,D
+SFig1A_BMI25_richness,Supplementary Figure 1,A
+SFig1B_BMI25_richness,Supplementary Figure 1,B
+SFig1C_BMI25_cohort_alpha_combined,Supplementary Figure 1,C
+SFig1D_BMI25_ComBat_descriptive,Supplementary Figure 1,D
+SFig1E_BMI25_ComBat_descriptive,Supplementary Figure 1,E
+SFig2A_BMI25_top_phylum_boxplots,Supplementary Figure 2,A
+SFig2B_BMI25_top_species_boxplots,Supplementary Figure 2,B
+SFig3_taxon_pathway_assignment_Sankey,Supplementary Figure 3,
+SFig4A_sensitivity_BMI23_species,Supplementary Figure 4,A
+SFig4B_sensitivity_CLR_species,Supplementary Figure 4,B
+SFig4C_sensitivity_CLR_pathways,Supplementary Figure 4,C

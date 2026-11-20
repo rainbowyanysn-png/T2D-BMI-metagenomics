@@ -1,0 +1,301 @@
+{
+  "font": {
+    "family": "Times New Roman",
+    "base_size": 9,
+    "title_size": 11,
+    "subtitle_size": 8,
+    "axis_title_size": 9,
+    "axis_text_size": 8,
+    "legend_text_size": 8,
+    "legend_title_size": 8,
+    "facet_text_size": 8
+  },
+  "groups": {
+    "order": [
+      "NC",
+      "OC",
+      "NT2D",
+      "OT2D"
+    ],
+    "fill": {
+      "NC": "#2166AC",
+      "OC": "#92C5DE",
+      "NT2D": "#F4A582",
+      "OT2D": "#B2182B"
+    }
+  },
+  "total_groups": {
+    "order": [
+      "Control",
+      "T2D"
+    ],
+    "fill": {
+      "Control": "#2166AC",
+      "T2D": "#C85A5A"
+    }
+  },
+  "colour_adjustment": {
+    "darken_amount": 0.3
+  },
+  "boxplot": {
+    "width": 0.4,
+    "alpha": 0.6,
+    "linewidth": 0.65,
+    "jitter_width": 0.1,
+    "point_size": 0.7,
+    "point_alpha": 0.55
+  },
+  "cohort_boxplot": {
+    "box_width": 0.6,
+    "dodge_width": 0.65,
+    "jitter_width": 0.1,
+    "point_size": 0.45,
+    "point_alpha": 0.45,
+    "x_text_angle": 45
+  },
+  "abundant_taxa": {
+    "box_width": 0.4,
+    "point_size": 0.45,
+    "point_alpha": 0.45,
+    "facet_ncol_phylum": 4,
+    "facet_ncol_species": 4,
+    "annotation_p_column": "p_adj_BH",
+    "annotation_alpha": 0.05,
+    "bracket_text_size": 2.15,
+    "bracket_linewidth": 0.25,
+    "bracket_colour": "#333333",
+    "bracket_base_fraction": 0.08,
+    "bracket_step_fraction": 0.15,
+    "bracket_tip_fraction": 0.025,
+    "bracket_label_fraction": 0.025
+  },
+  "ordination": {
+    "point_size": 1.1,
+    "point_alpha": 0.55,
+    "ellipse_level": 0.95,
+    "ellipse_type": "t",
+    "ellipse_linetype": 2,
+    "ellipse_linewidth": 0.5,
+    "legend_position": "right",
+    "cohort_shapes": {
+      "KarlssonFH_2013": 16,
+      "MetaCardis_2020_a": 17,
+      "QinJ_2012": 15,
+      "SankaranarayananK_2015": 3,
+      "YuJ_2015": 7
+    },
+    "subtitle_size": 6.2,
+    "subtitle_lineheight": 0.95,
+    "legend_text_size": 6.2,
+    "legend_title_size": 6.5,
+    "legend_lineheight": 0.9,
+    "legend_key_height_mm": 2.2,
+    "legend_key_width_mm": 3.0,
+    "legend_row_spacing_mm": 0.3,
+    "legend_guide_spacing_mm": 1.2,
+    "legend_box_spacing_mm": 1.5,
+    "raw_total_fill": {
+      "Control": "#2166AC",
+      "T2D": "#B2182B"
+    },
+    "raw_four_fill": {
+      "NC": "#2166AC",
+      "OC": "#92C5DE",
+      "NT2D": "#F4A582",
+      "OT2D": "#B2182B"
+    }
+  },
+  "lines": {
+    "axis_linewidth": 0.5
+  },
+  "export": {
+    "dpi": 300,
+    "background": "white",
+    "tiff_compression": "lzw",
+    "formats": [
+      "pdf",
+      "tiff",
+      "png"
+    ]
+  },
+  "jitter_seed": 20261116,
+  "whisker_coef": 1.5,
+  "probability_digits": 3,
+  "probability_threshold": 0.001,
+  "layout": {
+    "narrow_max_mm": 110,
+    "title_wrap_narrow": 36,
+    "title_wrap_wide": 90
+  },
+  "composition": {
+    "bar_width": 0.55,
+    "segment_border_colour": "#FFFFFF",
+    "segment_border_linewidth": 0.05,
+    "legend_position": "right",
+    "y_axis_title": "Mean relative abundance (%)",
+    "strip_fill": "#E5E5E5"
+  },
+  "phylum_palette": {
+    "Firmicutes": "#376795",
+    "Bacteroidetes": "#72BCD5",
+    "Actinobacteria": "#FFE6B7",
+    "Proteobacteria": "#F7AA58",
+    "Other": "#D0CFCA"
+  },
+  "species_palette": [
+    "#376795",
+    "#528FAD",
+    "#72BCD5",
+    "#AADCE0",
+    "#FFE6B7",
+    "#FFD06F",
+    "#F7AA58",
+    "#EF8A47",
+    "#D0CFCA"
+  ],
+  "upset": {
+    "intersection_bar_colour": "#222222",
+    "set_bar_colour": "#555555",
+    "member_colour": "#222222",
+    "nonmember_colour": "#DDDDDD",
+    "matrix_line_colour": "#222222",
+    "intersection_bar_width": 0.7,
+    "set_bar_width": 0.6,
+    "member_point_size": 1.9,
+    "display_order": [
+      "OC vs NC",
+      "OT2D vs NT2D",
+      "OT2D vs OC",
+      "NT2D vs NC",
+      "T2D vs Control"
+    ],
+    "name_panel_width_mm": 23,
+    "set_panel_width_mm": 28,
+    "column_gap_mm": 0.4,
+    "matrix_height_mm": 24,
+    "name_size": 2.6,
+    "row_margin_mm": 0.3
+  },
+  "lollipop": {
+    "zero_line_colour": "#999999",
+    "zero_line_type": "dashed",
+    "zero_line_width": 0.45,
+    "segment_width": 0.65,
+    "segment_alpha": 0.8,
+    "point_alpha": 0.95,
+    "point_size_range": [
+      2.2,
+      5.5
+    ],
+    "phylum_palette": {
+      "Firmicutes": "#376795",
+      "Bacteroidetes": "#72BCD5",
+      "Actinobacteria": "#FFE6B7",
+      "Proteobacteria": "#F7AA58",
+      "Other": "#E76254"
+    }
+  },
+  "species_heatmap": {
+    "low": "#72BCD5",
+    "mid": "#FBFAFE",
+    "high": "#F7AA58",
+    "na_colour": "#E5E5E5",
+    "border_colour": "#BDBDBD",
+    "border_width": 0.15,
+    "row_clustering": true,
+    "column_clustering": false,
+    "colour_limit_rule": "fixed_display_limits",
+    "column_angle": 45,
+    "star_size": 2.6,
+    "colour_limits": [
+      -2,
+      2
+    ],
+    "legend_breaks": [
+      -2,
+      0,
+      2
+    ],
+    "tree_width_fraction": 0.13
+  },
+  "volcano": {
+    "positive_fill": "#B2182B",
+    "negative_fill": "#2166AC",
+    "nonsignificant_fill": "#E0E0E0",
+    "positive_border": "#7A1020",
+    "negative_border": "#17477A",
+    "nonsignificant_border": "#B0B0B0",
+    "point_size": 1.4,
+    "point_alpha": 0.65,
+    "point_shape": 21,
+    "point_stroke": 0.3,
+    "zero_line_colour": "#999999",
+    "zero_line_width": 0.3,
+    "threshold_line_colour": "#808080",
+    "threshold_line_width": 0.3,
+    "label_size": 3.0,
+    "label_segment_width": 0.25,
+    "label_segment_colour": "#808080",
+    "legend_position": "none",
+    "box_padding": 0.3,
+    "point_padding": 0.2,
+    "min_segment_length": 0,
+    "seed": 20261116
+  },
+  "clinical_heatmap": {
+    "low": "#72BCD5",
+    "mid": "#FBFAFE",
+    "high": "#F7AA58",
+    "border_colour": "#FFFFFF",
+    "border_width": 0.2,
+    "row_clustering": true,
+    "column_clustering": true,
+    "symmetric_colour_scale": false,
+    "star_size": 2.8,
+    "column_angle": 45,
+    "colour_limits": [
+      -0.2,
+      0.15
+    ],
+    "legend_breaks": [
+      -0.2,
+      0,
+      0.15
+    ],
+    "tree_width_fraction": 0.2
+  },
+  "clustering": {
+    "distance": "euclidean",
+    "linkage": "complete"
+  },
+  "round2": {
+    "comparisons": [
+      "T2D vs Control",
+      "NT2D vs NC",
+      "OT2D vs OC",
+      "OC vs NC",
+      "OT2D vs NT2D"
+    ],
+    "contact_columns": 3,
+    "contact_cell_width": 650,
+    "contact_cell_height": 550
+  },
+  "figure4_layout": {
+    "panel_width_mm": 120,
+    "volcano_height_mm": 65,
+    "vertical_gap_mm": 5,
+    "stacked_volcano_count": 3
+  },
+  "figure3_layout": {
+    "left_panel_width_mm": 180,
+    "heatmap_width_mm": 165,
+    "left_panel_heights_mm": [
+      90,
+      90,
+      110,
+      135
+    ],
+    "vertical_gap_mm": 4,
+    "stacked_panel_count": 4
+  }
+}

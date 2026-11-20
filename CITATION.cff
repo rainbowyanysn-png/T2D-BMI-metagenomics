@@ -1,0 +1,6 @@
+cff-version: 1.2.0
+message: "Candidate citation metadata: authors, associated manuscript, repository URL and DOI must be completed before release."
+type: software
+title: "T2D–BMI microbiome analysis"
+version: "0.3.0-rc3-candidate"
+# Author metadata intentionally not invented; complete before publication.

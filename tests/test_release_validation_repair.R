@@ -1,0 +1,25 @@
+#!/usr/bin/env Rscript
+local({
+ if(.Platform$OS.type=="windows"&&!isTRUE(l10n_info()[["UTF-8"]]))Sys.setlocale("LC_CTYPE","English_United States.utf8")
+ entry<-sub("^--file=","",grep("^--file=",commandArgs(FALSE),value=TRUE));root<-normalizePath(dirname(dirname(entry)),winslash="/",mustWork=TRUE)
+ source(file.path(root,"R/functions/project_paths.R"),local=environment());activate_existing_project_library(root)
+ source(file.path(root,"R/functions/publication_bootstrap.R"),local=environment());load_publication_support(root,environment())
+ source(file.path(root,"tests/release_validation_config.R"),local=environment())
+ source(file.path(root,"tests/release_validation_methods.R"),local=environment())
+ results<-list();test<-function(n,expr){detail<-"";ok<-tryCatch({force(expr);TRUE},error=function(e){detail<<-conditionMessage(e);FALSE});results[[length(results)+1L]]<<-data.frame(check=n,pass=ok,detail=detail);message(if(ok)"PASS "else"FAIL ",n,if(nzchar(detail))paste(":",detail))}
+ fails<-function(expr,name=NULL){e<-tryCatch({force(expr);NULL},error=function(e)e);stopifnot(inherits(e,"error"));if(!is.null(name))stopifnot(grepl(name,conditionMessage(e),fixed=TRUE))}
+ test("Numeric tolerances retain exact frozen magnitudes",{x<-read_release_validation_plan(root);stopifnot(identical(x$absolute_tolerance,1e-8),identical(x$pooled_absolute_tolerance,1e-10),identical(x$pooled_relative_tolerance,1e-7));stopifnot(identical(release_numeric_scalar("1e-08","test"),1e-8))})
+ test("Missing/invalid tolerances fail explicitly",{for(v in list(NULL,NA_real_,NaN,Inf,-1,"bad","",c(1,2),TRUE,list(1)))fails(release_numeric_scalar(v,"bad_tolerance"),"bad_tolerance");x<-read_release_validation_plan(root);x$pooled_relative_tolerance<-NULL;fails(release_normalize_tolerances(x),"pooled_relative_tolerance")})
+ expected<-list(tested_5945=5945,new_fixed_study_full_model_q=1641,new_fixed_study_target_BH_audit=1425)
+ d<-data.frame(check=names(expected),observed=as.numeric(unlist(expected)),expected=as.numeric(unlist(expected)),pass=TRUE)
+ test("Three named pooled checks pass",release_validate_pooled_checks(d,expected))
+ test("Missing/duplicate/wrong pooled checks fail",{fails(release_validate_pooled_checks(d[-1,],expected));z<-d;z$check[2]<-z$check[1];fails(release_validate_pooled_checks(z,expected));z<-d;z$observed[2]<-1425;fails(release_validate_pooled_checks(z,expected));z<-d;z$expected[2]<-1425;fails(release_validate_pooled_checks(z,expected));z<-d;z$pass[1]<-FALSE;fails(release_validate_pooled_checks(z,expected))})
+ test("Repeated plan row count definitions agree",{x<-read_release_validation_plan(root);j<-Filter(function(j)j$module_id=="pooled_pathways",x$modules)[[1]];name<-"tables/03a_pooled_MaAsLin2_pathways/numeric_checks.csv";f<-Filter(function(z)z$file==name,j$expected_output_files)[[1]];stopifnot(j$expected_tested[[name]]==3,f$n_rows==3,identical(as.numeric(unlist(f$named_numeric_checks)),as.numeric(unlist(expected))))})
+ test("Missing pathway config reports exact field",{tmp<-tempfile("release_config_");dir.create(file.path(tmp,"config"),recursive=TRUE);on.exit(unlink(tmp,recursive=TRUE),add=TRUE);file.copy(file.path(root,"config/analysis_config.yml"),file.path(tmp,"config/analysis_config.yml"));cfg<-yaml::read_yaml(file.path(root,"config/publication_panel_config.yml"));cfg$pathway_candidate_limit$genus<-NULL;yaml::write_yaml(cfg,file.path(tmp,"config/publication_panel_config.yml"));fails(release_publication_config(tmp),"publication.pathway_candidate_limit.genus")})
+ test("Fresh vanilla R process config routing",{exe<-file.path(R.home("bin"),if(.Platform$OS.type=="windows")"Rscript.exe"else"Rscript");status<-system2(exe,c("--vanilla",shQuote(file.path(root,"tests/test_release_config_fresh.R"))));stopifnot(status==0L)})
+ test("Statistics and admission hashes were not changed",{x<-utils::read.csv(file.path(root,"config/statistical_implementation_sha256.csv"));stopifnot(all(vapply(file.path(root,x$file),sha256_file,character(1))==x$sha256));ad<-yaml::read_yaml(file.path(root,"config/module_admission.yml"));stopifnot(!isTRUE(ad$production_ready))})
+ test("All R syntax",{for(f in c(list.files(file.path(root,"R"),pattern="[.]R$",recursive=TRUE,full.names=TRUE),list.files(file.path(root,"tests"),pattern="[.]R$",recursive=TRUE,full.names=TRUE),list.files(root,pattern="[.]R$",full.names=TRUE)))parse(f,encoding="UTF-8")})
+ out<-Sys.getenv("T2DBMI_AUDIT_DIR",unset=file.path(dirname(root),paste0(basename(root),"_Audit")));dir.create(out,recursive=TRUE,showWarnings=FALSE)
+ report<-file.path(out,paste0("ValidationRepairTests_",format(Sys.time(),"%Y%m%d_%H%M%S"),"_",Sys.getpid(),".csv"));utils::write.csv(do.call(rbind,results),report,row.names=FALSE);message("Targeted tests: ",report)
+ if(!all(vapply(results,function(z)z$pass,logical(1))))quit(status=1L)
+})

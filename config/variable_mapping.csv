@@ -1,0 +1,14 @@
+source_field,source_value,analysis_field,analysis_value,rule
+disease,T2D,disease,T2D,retain
+disease,control,disease,control,retain
+disease,healthy,disease,control,historical control harmonization
+gender,all,sex,lowercase without trimming,historical primary preprocessing
+age,missing,age,cohort median,historical imputation within retained source cohort
+BMI,numeric,BMI25_group,long original four-group levels,cutoff 25
+BMI,numeric,BMI23_group,long original four-group levels,23 QinJ_2012 and YuJ_2015; 25 other cohorts
+BMI,numeric,BMI_centered,BMI_numeric minus global analytic mean,1186-person mean; per 1 kg/m2
+BMI,numeric,BMI_per5,centered BMI divided by 5,1186-person mean; per 5 kg/m2
+analysis_group,Non_Overweight_Control,display_group,NC,non-overweight control
+analysis_group,Overweight_Control,display_group,OC,overweight control
+analysis_group,Non_Overweight_T2D,display_group,NT2D,non-overweight T2D
+analysis_group,Overweight_T2D,display_group,OT2D,overweight T2D

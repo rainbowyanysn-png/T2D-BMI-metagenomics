@@ -1,0 +1,62 @@
+font:
+  family: "Times New Roman"
+  base_size: 9
+export:
+  dpi: 300
+  background: "white"
+  tiff_compression: "lzw"
+direction:
+  positive: "#B2182B"
+  negative: "#2166AC"
+  nonsignificant: "#E0E0E0"
+heatmap:
+  low: "#4DBAD4"
+  mid: "#FBFAFE"
+  high: "#FF851A"
+  na: "#E6E6E6"
+  limit: 2.5
+taxonomy_palette:
+  - "#7BC0CD"
+  - "#B8E5FA"
+  - "#FFE6B7"
+  - "#F7AA58"
+overlap:
+  overall: "#E29E8F"
+  nt2d: "#8BB6D6"
+sankey:
+  genus_hue_start: 15
+  genus_hue_end: 345
+  genus_chroma: 52
+  genus_luminance: 58
+  pathway_hue_start: 0
+  pathway_hue_end: 350
+  pathway_chroma: 38
+  pathway_luminance: 78
+  ribbon_alpha: 0.30
+  node_alpha: 0.92
+  node_halfwidth: 0.035
+  node_gap: 0.010
+  polygon_points: 60
+  label_fontface: bold.italic
+  label_margin_left_mm: 60
+  label_margin_right_mm: 32
+  display_xmin: 0.90
+  display_xmax: 3.15
+
+# Display dimensions only; statistical inputs and selection rules are unchanged.
+panel_dimensions:
+  Fig5B_MaAsLin2_genus_pathway_features:
+    width_mm: 130
+    height_mm: 110
+  Fig5A_MaAsLin2_overall_pathway_volcano:
+    width_mm: 130
+    height_mm: 110
+  Fig5C_MaAsLin2_species_pathway_features:
+    width_mm: 240
+    height_mm: 165
+  Fig6B_REML_pathway_effect_heatmap:
+    width_mm: 140
+    height_mm: 180
+  Fig6D_REML_functional_categories:
+    width_mm: 210
+    height_mm: 115

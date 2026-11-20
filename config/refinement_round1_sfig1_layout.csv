@@ -1,0 +1,6 @@
+panel,source_id,secondary_source_id,output_filename,width_mm,height_mm,title
+A,SFig1A_BMI25_richness,,SFig1A_BMI25_richness,110,85,Overall Alpha Diversity (Richness)
+B,SFig1D_BMI25_richness,,SFig1B_BMI25_richness,110,85,Alpha Diversity (Richness)
+C,SFig1B_BMI25_shannon,SFig1C_BMI25_richness,SFig1C_BMI25_cohort_alpha_combined,224,180,Alpha Diversity by Cohort
+D,SFig1F_BMI25_ComBat_descriptive,,SFig1D_BMI25_ComBat_descriptive,110,85,ComBat PCoA: T2D vs Control
+E,SFig1G_BMI25_ComBat_descriptive,,SFig1E_BMI25_ComBat_descriptive,110,85,ComBat PCoA: BMI25 Groups

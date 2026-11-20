@@ -1,0 +1,5 @@
+schema_version: 1
+reference_index: reference_index.csv
+reference_root_environment: T2DBMI_REFERENCE_ROOT
+required_for_computation: false
+reference_index_sha256: f487b482fbb4383c0b8ef42ee70c4abd724d50bb6d483373ae5f63ba87843861

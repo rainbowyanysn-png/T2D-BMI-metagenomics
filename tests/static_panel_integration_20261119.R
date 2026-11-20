@@ -1,0 +1,22 @@
+#!/usr/bin/env Rscript
+local({
+  if(.Platform$OS.type=="windows"&&!isTRUE(l10n_info()[["UTF-8"]]))Sys.setlocale("LC_CTYPE","English_United States.utf8")
+  entry<-sub("^--file=","",grep("^--file=",commandArgs(FALSE),value=TRUE));stopifnot(length(entry)==1L)
+  root<-normalizePath(dirname(dirname(entry)),winslash="/",mustWork=TRUE)
+  source(file.path(root,"R/functions/project_paths.R"),local=environment());activate_existing_project_library(root)
+  stopifnot(requireNamespace("digest",quietly=TRUE),requireNamespace("yaml",quietly=TRUE))
+  read<-function(n)paste(readLines(file.path(root,n),encoding="UTF-8",warn=FALSE),collapse="\n")
+  checks<-list();test<-function(n,expr){err<-"";ok<-tryCatch({force(expr);TRUE},error=function(e){err<<-conditionMessage(e);FALSE});checks[[length(checks)+1L]]<<-data.frame(check=n,pass=ok,detail=err)}
+  test("All project R syntax",{files<-unique(c(list.files(file.path(root,"R"),pattern="[.]R$",recursive=TRUE,full.names=TRUE),list.files(file.path(root,"tests"),pattern="[.]R$",recursive=TRUE,full.names=TRUE),list.files(root,pattern="[.]R$",full.names=TRUE)));for(f in files)parse(f,encoding="UTF-8")})
+  test("Frozen statistical hashes",{x<-utils::read.csv(file.path(root,"config/statistical_implementation_sha256.csv"));stopifnot(all(vapply(file.path(root,x$file),function(f)digest::digest(file=f,algo="sha256"),character(1))==x$sha256))})
+  a<-read("R/functions/publication_refinement_adapter.R");b<-read("R/pipeline/13b_publication_panels.R");f<-read("R/functions/refinement/plot_abundant_taxa.R")
+  test("Single SFig2 renderer and current-run route",{stopifnot(grepl('name=="abundant_taxa_emmeans_pairwise_all.csv")"04b_abundant_taxa"',a,fixed=TRUE),grepl('result<-env$plot_abundant_taxa(',a,fixed=TRUE),!grepl('!startsWith(id,"SFig2")',a,fixed=TRUE));z<-strsplit(b,'plan(paste0("SFig2",panel)',fixed=TRUE)[[1]][2];z<-strsplit(z,'plan("SFig3"',fixed=TRUE)[[1]][1];stopifnot(!grepl('geom_|patchwork::',z))})
+  test("SFig2 configured geometry and stored BH only",{r<-utils::read.csv(file.path(root,"config/refinement_round1_panels.csv"));r<-r[startsWith(r$figure_id,"SFig2"),];stopifnot(identical(r$width_mm,c(180L,180L))||all(r$width_mm==180),identical(as.numeric(r$height_mm),c(47.5,90)),grepl('a$display_selected<-a$p_adj_BH<s$annotation_alpha',f,fixed=TRUE),!grepl('p.adjust|emmeans::|lmer\\(',f),grepl('result$audits<-list(pairwise_annotations=result$statistics)',a,fixed=TRUE),grepl('original[[n]],result$statistics[[n]]',a,fixed=TRUE),grepl('layer$data[[n]]',a,fixed=TRUE))})
+  test("SFig1C common legend and horizontal lower axis",{stopifnot(grepl('guides="collect",heights=c(1,1)',a,fixed=TRUE),grepl('angle=0,hjust=.5',a,fixed=TRUE),grepl('size=env$style$font$title_size',a,fixed=TRUE))})
+  test("40 panels; 16 workbook configuration preserved",{r<-utils::read.csv(file.path(root,"config/publication_panels_manifest.csv"));stopifnot(nrow(r)==40,!any(grepl('^SFig5',r$figure_id)));cfg<-yaml::read_yaml(file.path(root,"config/publication_panel_config.yml"));stopifnot(cfg$expected_workbooks==16||cfg$expected_workbook_count==16)})
+  test("No new external input reference in changed display code",{stopifnot(!grepl('FigureRefinement|PublicationExport_|[A-Z]:[/\\\\]|20261020',a),!grepl('FigureRefinement|PublicationExport_|20261020',b))})
+  out<-file.path(Sys.getenv("T2DBMI_AUDIT_DIR",unset=file.path(dirname(root),paste0(basename(root),"_Audit"))),paste0("StaticCheck_",format(Sys.time(),"%Y%m%d_%H%M%S"),"_",Sys.getpid()));dir.create(out,recursive=TRUE)
+  report<-do.call(rbind,checks);utils::write.csv(report,file.path(out,"static_checks.csv"),row.names=FALSE)
+  cat(paste(ifelse(report$pass,"PASS","FAIL"),report$check,report$detail),sep="\n");cat("\nStatic report: ",out,"\n",sep="")
+  if(!all(report$pass))quit(status=1L)
+})

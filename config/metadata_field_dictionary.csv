@@ -1,0 +1,31 @@
+variable_id,metadata_column,domain,main_model_status,interpretation_note
+age,age,core_model,adjusted,Primary-model covariate; audit raw availability separately from any historical imputation.
+sex,gender,core_model,adjusted,Primary-model covariate; source field is gender and derived model field may be sex.
+bmi,BMI,core_model,exposure_or_effect_modifier,Primary exposure/effect modifier; not a confounder of its own BMI comparison.
+study,study_name,core_model,fixed_effect,Fixed-effect cohort adjustment in pooled models.
+antibiotic_current_use,antibiotics_current_use,medication,not_adjusted,Potential microbiome confounder; assess source definition and timing before any adjustment.
+antidiabetic_medication_text,treatment,medication,not_adjusted,Raw free text only; unknown is not non-use and combination therapy may be unresolved.
+historical_antidiabetes_group,antidiabetes_group,medication,species_T2D_internal_primary,Prespecified treatment-text grouping used in T2D-internal species primary models only; not comprehensive medication ascertainment.
+diet,diet,diet,not_adjusted,Potential confounder; cross-cohort definition and time window require source verification.
+protein_intake,protein_intake,diet,not_adjusted,Dietary proxy; requires source verification.
+smoking,smoker,lifestyle,not_adjusted,Potential confounder; coding and ascertainment require source verification.
+ever_smoker,ever_smoker,lifestyle,not_adjusted,Potential confounder; coding and ascertainment require source verification.
+alcohol,alcohol,lifestyle,not_adjusted,Potential confounder; coding and ascertainment require source verification.
+lifestyle,lifestyle,lifestyle,not_adjusted,Potential confounder; definition is heterogeneous unless source-verified.
+socioeconomic_status,,socioeconomic,not_available_as_harmonized_field,No exact field predefined; inspect alias and free-text evidence for socioeconomic information.
+country,country,environment,not_adjusted,"Cohort-level contextual variable, not individual-level environmental exposure."
+location,location,environment,not_adjusted,"Cohort-level contextual variable, not individual-level environmental exposure."
+population_or_ethnicity,population,environment,not_adjusted,Potential population descriptor; not equivalent to individual ethnicity unless source-verified.
+non_westernized,non_westernized,environment,not_adjusted,Cohort descriptor; not an individual-level exposure.
+travel_destination,travel_destination,environment,not_adjusted,Potential contextual exposure; source verification required.
+diabetes_duration,,clinical,not_available_as_harmonized_field,No exact field predefined; inspect alias and free-text evidence for diabetes duration.
+hba1c,hba1c,clinical,not_adjusted,"Clinical control measure; units, timing, and disease group must be source-verified."
+fasting_glucose,fasting_glucose,clinical,not_adjusted,"Clinical control measure; units, fasting status, timing, and disease group must be source-verified."
+fasting_insulin,fasting_insulin,clinical,not_adjusted,"Insulin-resistance-related measure; fasting status, units, and timing require verification."
+glucose,glucose,clinical,not_adjusted,Clinical glucose field; verify relation to fasting_glucose and measurement timing.
+c_peptide,c_peptide,clinical,not_adjusted,Clinical beta-cell-function-related measure; units and timing require verification.
+insulin_category,insulin_cat,clinical,not_adjusted,Categorical insulin variable; verify definition before use.
+disease_subtype,disease_subtype,clinical,not_adjusted,"May encode study-specific phenotype, not a harmonized severity scale."
+disease_stage,disease_stage,clinical,not_adjusted,May be unrelated to T2D severity; verify cohort-specific relevance.
+performance_status,performance_status,clinical,not_adjusted,May be unrelated to T2D severity; verify cohort-specific relevance.
+major_comorbidity,,clinical,not_available_as_harmonized_field,No exact field predefined; inspect alias and free-text evidence for comorbidities.

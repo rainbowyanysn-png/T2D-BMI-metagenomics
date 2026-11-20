@@ -1,0 +1,9 @@
+category,pattern
+Fatty acid metabolism,fatty acid|beta oxidation|FAO|lipid|acyl
+TCA and energy,TCA|glyoxylate|pyruvate|citrate|acetyl
+Amino acid metabolism,arginine|methionine|serine|glycine|valine|leucine|isoleucine|lysine|ornithine|histidine
+One carbon and SAM,SAM|S adenosyl|homoserine|folate
+Nucleotide metabolism,purine|pyrimidine|adenosine|guanosine|nucleotide
+Carbohydrate metabolism,glycolysis|glucuronate|galacturonate|starch
+Vitamin and cofactor,flavin|thiamine|coenzyme A|NAD|queuosine
+Cell wall and LPS,peptidoglycan|muramoyl|UDP N acetyl|rhamnose

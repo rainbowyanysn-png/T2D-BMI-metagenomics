@@ -1,0 +1,17 @@
+#!/usr/bin/env Rscript
+local({
+ entry<-sub("^--file=","",grep("^--file=",commandArgs(FALSE),value=TRUE));root<-dirname(dirname(entry))
+ source(file.path(root,"R/functions/project_paths.R"),local=environment());activate_existing_project_library(root)
+ source(file.path(root,"R/functions/analysis_bootstrap.R"),local=environment());load_analysis_support(root,environment())
+ source(file.path(root,"tests/validate_no_legacy_dependency.R"),local=environment());validate_no_legacy_dependency(root)
+ reg<-pipeline_registry(root);stopifnot(nrow(reg)==21L,!any(grepl("trial|extreme|score|power|Pilot",reg$module)))
+ for(f in unique(c("01_import_harmonize_qc.R",reg$file)))source(file.path(root,"R/pipeline",f),local=environment())
+ for(i in seq_len(nrow(reg)))for(n in module_function_dependencies(reg$module[i],reg$function_name[i]))stopifnot(exists(n,mode="function",inherits=TRUE))
+ contract<-utils::read.csv(file.path(root,"config/statistical_implementation_sha256.csv"))
+ stopifnot(all(vapply(file.path(root,contract$file),sha256_file,character(1))==contract$sha256))
+ cfg<-read_config(root);stopifnot(isTRUE(cfg$models$primary_maaslin_standardize),isTRUE(cfg$models$bmi23_maaslin_standardize),identical(cfg$models$interaction_maaslin_standardize,FALSE),cfg$pooled_pathway_maaslin$expected_full_model_significant==1641L,cfg$pooled_pathway_maaslin$expected_target_BH_audit_significant==1425L)
+ manifest<-yaml::read_yaml(file.path(root,"config/release_validation_plan.yml"))
+ stopifnot(length(manifest$modules)==24L)
+ source(file.path(root,"R/functions/publication_bootstrap.R"),local=environment());load_publication_support(root,environment())
+ cat("PASS public layout, frozen implementations, closed module graph and export dependency closure; no model fits\n")
+})

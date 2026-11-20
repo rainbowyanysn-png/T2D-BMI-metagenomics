@@ -1,0 +1,1497 @@
+schema_version: 1
+modules:
+- module_id: inputs
+  file: 01_import_harmonize_qc.R
+  function_name: run_import_harmonize_qc
+  formal_or_sensitivity: formal_or_supporting
+  expected_tested:
+    tables/01_BMI25_cohort_four_group_counts.csv: 20
+    tables/01_pathway_prevalence.csv: 5945
+    tables/01_sample_manifest.csv: 1186
+    tables/01_species_prevalence.csv: 200
+  expected_significant: {}
+  formal_q_column: {}
+  model_contract: []
+  standardize: []
+  requires_external_reference: yes
+  required_for_publication: yes
+  expected_output_files:
+  - file: tables/01_BMI25_cohort_four_group_counts.csv
+    n_rows: 20
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/01_pathway_prevalence.csv
+    n_rows: 5945
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/01_sample_manifest.csv
+    n_rows: 1186
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/01_species_prevalence.csv
+    n_rows: 200
+    formal_q_column: ~
+    expected_significant: ~
+- module_id: primary
+  file: 02_primary_BMI25_species.R
+  function_name: run_primary_bmi25_species
+  formal_or_sensitivity: formal_or_supporting
+  expected_tested:
+    tables/02_primary_BMI25_species/BMI25_T2D_medication_group_counts.csv: 8
+    tables/02_primary_BMI25_species/NT2D_vs_NC_BMI25_all.csv: 192
+    tables/02_primary_BMI25_species/OC_vs_NC_BMI25_all.csv: 193
+    tables/02_primary_BMI25_species/OT2D_vs_NT2D_BMI25_all.csv: 190
+    tables/02_primary_BMI25_species/OT2D_vs_OC_BMI25_all.csv: 187
+    tables/02_primary_BMI25_species/Total_T2D_vs_Control_all.csv: 200
+    tables/02_primary_BMI25_species_summary.csv: 5
+  expected_significant:
+    tables/02_primary_BMI25_species/NT2D_vs_NC_BMI25_all.csv: 32
+    tables/02_primary_BMI25_species/OC_vs_NC_BMI25_all.csv: 4
+    tables/02_primary_BMI25_species/OT2D_vs_NT2D_BMI25_all.csv: 5
+    tables/02_primary_BMI25_species/OT2D_vs_OC_BMI25_all.csv: 10
+    tables/02_primary_BMI25_species/Total_T2D_vs_Control_all.csv: 69
+  formal_q_column:
+    tables/02_primary_BMI25_species/NT2D_vs_NC_BMI25_all.csv: qval
+    tables/02_primary_BMI25_species/OC_vs_NC_BMI25_all.csv: qval
+    tables/02_primary_BMI25_species/OT2D_vs_NT2D_BMI25_all.csv: qval
+    tables/02_primary_BMI25_species/OT2D_vs_OC_BMI25_all.csv: qval
+    tables/02_primary_BMI25_species/Total_T2D_vs_Control_all.csv: qval
+  model_contract:
+  - file: models/02_primary_BMI25_species/NT2D_vs_NC_BMI25/MaAsLin2/model_contract/parameters.csv
+    parameters:
+      fixed_effects: Group + age + sex + study_name
+      random_effects: ''
+      references: Group,Non_Overweight_Control;sex,female;study_name,QinJ_2012
+      standardize: 'TRUE'
+      normalization: TSS
+      transform: LOG
+      min_prevalence: '0.1'
+      Maaslin2_version: 1.22.0
+  - file: models/02_primary_BMI25_species/OC_vs_NC_BMI25/MaAsLin2/model_contract/parameters.csv
+    parameters:
+      fixed_effects: Group + age + sex + study_name
+      random_effects: ''
+      references: Group,Non_Overweight_Control;sex,female;study_name,QinJ_2012
+      standardize: 'TRUE'
+      normalization: TSS
+      transform: LOG
+      min_prevalence: '0.1'
+      Maaslin2_version: 1.22.0
+  - file: models/02_primary_BMI25_species/OT2D_vs_NT2D_BMI25/MaAsLin2/model_contract/parameters.csv
+    parameters:
+      fixed_effects: Group + age + sex + study_name + antidiabetes_group
+      random_effects: ''
+      references: Group,Non_Overweight_T2D;sex,female;study_name,MetaCardis_2020_a;antidiabetes_group,Metformin
+      standardize: 'TRUE'
+      normalization: TSS
+      transform: LOG
+      min_prevalence: '0.1'
+      Maaslin2_version: 1.22.0
+  - file: models/02_primary_BMI25_species/OT2D_vs_OC_BMI25/MaAsLin2/model_contract/parameters.csv
+    parameters:
+      fixed_effects: Group + age + sex + study_name
+      random_effects: ''
+      references: Group,Overweight_Control;sex,female;study_name,MetaCardis_2020_a
+      standardize: 'TRUE'
+      normalization: TSS
+      transform: LOG
+      min_prevalence: '0.1'
+      Maaslin2_version: 1.22.0
+  - file: models/02_primary_BMI25_species/Total_T2D_vs_Control/MaAsLin2/model_contract/parameters.csv
+    parameters:
+      fixed_effects: disease + BMI + age + sex + study_name
+      random_effects: ''
+      references: disease,control;sex,female;study_name,MetaCardis_2020_a
+      standardize: 'TRUE'
+      normalization: TSS
+      transform: LOG
+      min_prevalence: '0.1'
+      Maaslin2_version: 1.22.0
+  standardize:
+  - 'TRUE'
+  - 'TRUE'
+  - 'TRUE'
+  - 'TRUE'
+  - 'TRUE'
+  requires_external_reference: yes
+  required_for_publication: yes
+  expected_output_files:
+  - file: tables/02_primary_BMI25_species/BMI25_T2D_medication_group_counts.csv
+    n_rows: 8
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/02_primary_BMI25_species/NT2D_vs_NC_BMI25_all.csv
+    n_rows: 192
+    formal_q_column: qval
+    expected_significant: 32
+  - file: tables/02_primary_BMI25_species/OC_vs_NC_BMI25_all.csv
+    n_rows: 193
+    formal_q_column: qval
+    expected_significant: 4
+  - file: tables/02_primary_BMI25_species/OT2D_vs_NT2D_BMI25_all.csv
+    n_rows: 190
+    formal_q_column: qval
+    expected_significant: 5
+  - file: tables/02_primary_BMI25_species/OT2D_vs_OC_BMI25_all.csv
+    n_rows: 187
+    formal_q_column: qval
+    expected_significant: 10
+  - file: tables/02_primary_BMI25_species/Total_T2D_vs_Control_all.csv
+    n_rows: 200
+    formal_q_column: qval
+    expected_significant: 69
+  - file: tables/02_primary_BMI25_species_summary.csv
+    n_rows: 5
+    formal_q_column: ~
+    expected_significant: ~
+- module_id: species_loco
+  file: 02a_species_cross_cohort_robustness.R
+  function_name: run_species_cross_cohort_robustness
+  formal_or_sensitivity: robustness
+  requires_external_reference: no
+  required_for_publication: yes
+  model_contract: []
+  standardize: 'TRUE'
+  expected_output_files:
+  - file: tables/02a_species_LOCO/LOCO_all_results.csv
+    n_rows: 5000
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/02a_species_LOCO/LOCO_model_summary.csv
+    n_rows: 25
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/02a_species_LOCO/LOCO_primary_significant.csv
+    n_rows: 120
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/02a_species_LOCO/LOCO_feature_summary.csv
+    n_rows: 79
+    formal_q_column: ~
+    expected_significant: ~
+- module_id: clinical_correlations
+  file: 02b_exploratory_clinical_correlations.R
+  function_name: run_exploratory_clinical_correlations
+  formal_or_sensitivity: formal_or_supporting
+  expected_tested:
+    tables/02b_exploratory_clinical_correlations/Clinical_correlation_benchmark_checks.csv: 18
+    tables/02b_exploratory_clinical_correlations/Clinical_correlation_input_manifest.csv: 3
+    tables/02b_exploratory_clinical_correlations/Clinical_correlation_selected_top20_features.csv: 20
+    tables/02b_exploratory_clinical_correlations/Clinical_correlation_sex_coding_audit.csv: 2
+    tables/02b_exploratory_clinical_correlations/Clinical_correlation_validation_summary.csv: 10
+    tables/02b_exploratory_clinical_correlations/Clinical_correlations_all_60_tests.csv: 60
+  expected_significant:
+    tables/02b_exploratory_clinical_correlations/Clinical_correlations_all_60_tests.csv: 24
+  formal_q_column:
+    tables/02b_exploratory_clinical_correlations/Clinical_correlations_all_60_tests.csv: q_bh_60
+  model_contract: []
+  standardize: []
+  requires_external_reference: yes
+  required_for_publication: yes
+  expected_output_files:
+  - file: tables/02b_exploratory_clinical_correlations/Clinical_correlation_benchmark_checks.csv
+    n_rows: 18
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/02b_exploratory_clinical_correlations/Clinical_correlation_input_manifest.csv
+    n_rows: 3
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/02b_exploratory_clinical_correlations/Clinical_correlation_selected_top20_features.csv
+    n_rows: 20
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/02b_exploratory_clinical_correlations/Clinical_correlation_sex_coding_audit.csv
+    n_rows: 2
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/02b_exploratory_clinical_correlations/Clinical_correlation_validation_summary.csv
+    n_rows: 10
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/02b_exploratory_clinical_correlations/Clinical_correlations_all_60_tests.csv
+    n_rows: 60
+    formal_q_column: q_bh_60
+    expected_significant: 24
+- module_id: additive
+  file: 06_additive_T2D_BMI.R
+  function_name: run_additive_t2d_bmi
+  formal_or_sensitivity: formal_or_supporting
+  expected_tested:
+    tables/06_additive_all_target_coefficients.csv: 400
+    tables/06_additive_coefficients_wide.csv: 200
+    tables/06_additive_summary.csv: 2
+  expected_significant:
+    tables/06_additive_all_target_coefficients.csv: 89
+  formal_q_column:
+    tables/06_additive_all_target_coefficients.csv: q_within_exposure_BH
+  model_contract:
+  - file: models/06_additive_T2D_BMI/MaAsLin2/model_contract/parameters.csv
+    parameters:
+      fixed_effects: disease + BMI_per5 + age + sex + study_name
+      random_effects: ''
+      references: disease,control;sex,female;study_name,MetaCardis_2020_a
+      standardize: 'FALSE'
+      normalization: TSS
+      transform: LOG
+      min_prevalence: '0.1'
+      Maaslin2_version: 1.22.0
+  standardize: 'FALSE'
+  requires_external_reference: yes
+  required_for_publication: yes
+  expected_output_files:
+  - file: tables/06_additive_all_target_coefficients.csv
+    n_rows: 400
+    formal_q_column: q_within_exposure_BH
+    expected_significant: 89
+  - file: tables/06_additive_coefficients_wide.csv
+    n_rows: 200
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/06_additive_summary.csv
+    n_rows: 2
+    formal_q_column: ~
+    expected_significant: ~
+- module_id: interactions
+  file: 05_formal_interactions.R
+  function_name: run_formal_interactions
+  formal_or_sensitivity: formal_or_supporting
+  expected_tested:
+    tables/05_formal_interactions/BMI25_pathways_all.csv: 5945
+    tables/05_formal_interactions/BMI25_species_all.csv: 200
+    tables/05_formal_interactions/continuous_BMI_pathways_all.csv: 5945
+    tables/05_formal_interactions/continuous_BMI_species_all.csv: 200
+    tables/05_formal_interactions_summary.csv: 4
+  expected_significant:
+    tables/05_formal_interactions/BMI25_pathways_all.csv: 0
+    tables/05_formal_interactions/BMI25_species_all.csv: 0
+    tables/05_formal_interactions/continuous_BMI_pathways_all.csv: 0
+    tables/05_formal_interactions/continuous_BMI_species_all.csv: 0
+  formal_q_column:
+    tables/05_formal_interactions/BMI25_pathways_all.csv: formal_q
+    tables/05_formal_interactions/BMI25_species_all.csv: formal_q
+    tables/05_formal_interactions/continuous_BMI_pathways_all.csv: formal_q
+    tables/05_formal_interactions/continuous_BMI_species_all.csv: formal_q
+  model_contract:
+  - file: models/05_formal_interactions/BMI25_pathways/MaAsLin2/model_contract/parameters.csv
+    parameters:
+      fixed_effects: T2D_binary + BMI25_binary + T2D_x_BMI25 + age_numeric + sex +
+        study_name
+      random_effects: ''
+      references: sex,female;study_name,MetaCardis_2020_a
+      standardize: 'FALSE'
+      normalization: TSS
+      transform: LOG
+      min_prevalence: '0'
+      Maaslin2_version: 1.22.0
+  - file: models/05_formal_interactions/BMI25_species/MaAsLin2/model_contract/parameters.csv
+    parameters:
+      fixed_effects: T2D_binary + BMI25_binary + T2D_x_BMI25 + age_numeric + sex +
+        study_name
+      random_effects: ''
+      references: sex,female;study_name,MetaCardis_2020_a
+      standardize: 'FALSE'
+      normalization: TSS
+      transform: LOG
+      min_prevalence: '0'
+      Maaslin2_version: 1.22.0
+  - file: models/05_formal_interactions/continuous_BMI_pathways/MaAsLin2/model_contract/parameters.csv
+    parameters:
+      fixed_effects: T2D_binary + BMI_centered + T2D_x_BMI_continuous + age_numeric
+        + sex + study_name
+      random_effects: ''
+      references: sex,female;study_name,MetaCardis_2020_a
+      standardize: 'FALSE'
+      normalization: TSS
+      transform: LOG
+      min_prevalence: '0'
+      Maaslin2_version: 1.22.0
+  - file: models/05_formal_interactions/continuous_BMI_species/MaAsLin2/model_contract/parameters.csv
+    parameters:
+      fixed_effects: T2D_binary + BMI_centered + T2D_x_BMI_continuous + age_numeric
+        + sex + study_name
+      random_effects: ''
+      references: sex,female;study_name,MetaCardis_2020_a
+      standardize: 'FALSE'
+      normalization: TSS
+      transform: LOG
+      min_prevalence: '0'
+      Maaslin2_version: 1.22.0
+  standardize:
+  - 'FALSE'
+  - 'FALSE'
+  - 'FALSE'
+  - 'FALSE'
+  requires_external_reference: yes
+  required_for_publication: yes
+  expected_output_files:
+  - file: tables/05_formal_interactions/BMI25_pathways_all.csv
+    n_rows: 5945
+    formal_q_column: formal_q
+    expected_significant: 0
+  - file: tables/05_formal_interactions/BMI25_species_all.csv
+    n_rows: 200
+    formal_q_column: formal_q
+    expected_significant: 0
+  - file: tables/05_formal_interactions/continuous_BMI_pathways_all.csv
+    n_rows: 5945
+    formal_q_column: formal_q
+    expected_significant: 0
+  - file: tables/05_formal_interactions/continuous_BMI_species_all.csv
+    n_rows: 200
+    formal_q_column: formal_q
+    expected_significant: 0
+  - file: tables/05_formal_interactions_summary.csv
+    n_rows: 4
+    formal_q_column: ~
+    expected_significant: ~
+- module_id: pathways
+  file: 03_primary_BMI25_pathways.R
+  function_name: run_primary_bmi25_pathways
+  formal_or_sensitivity: formal_or_supporting
+  expected_tested:
+    tables/03_primary_BMI25_pathways/BMI25_NonOW_T2D_vs_NonOW_Ctrl_all.csv: 5572
+    tables/03_primary_BMI25_pathways/BMI25_OW_Ctrl_vs_NonOW_Ctrl_all.csv: 5572
+    tables/03_primary_BMI25_pathways/BMI25_OW_T2D_vs_NonOW_T2D_all.csv: 5573
+    tables/03_primary_BMI25_pathways/BMI25_OW_T2D_vs_OW_Ctrl_all.csv: 5573
+    tables/03_primary_BMI25_pathways/BMI25_Total_T2D_vs_HC_all.csv: 5573
+  expected_significant:
+    tables/03_primary_BMI25_pathways/BMI25_NonOW_T2D_vs_NonOW_Ctrl_all.csv: 133
+    tables/03_primary_BMI25_pathways/BMI25_OW_Ctrl_vs_NonOW_Ctrl_all.csv: 0
+    tables/03_primary_BMI25_pathways/BMI25_OW_T2D_vs_NonOW_T2D_all.csv: 20
+    tables/03_primary_BMI25_pathways/BMI25_OW_T2D_vs_OW_Ctrl_all.csv: 0
+    tables/03_primary_BMI25_pathways/BMI25_Total_T2D_vs_HC_all.csv: 13
+  formal_q_column:
+    tables/03_primary_BMI25_pathways/BMI25_NonOW_T2D_vs_NonOW_Ctrl_all.csv: padj
+    tables/03_primary_BMI25_pathways/BMI25_OW_Ctrl_vs_NonOW_Ctrl_all.csv: padj
+    tables/03_primary_BMI25_pathways/BMI25_OW_T2D_vs_NonOW_T2D_all.csv: padj
+    tables/03_primary_BMI25_pathways/BMI25_OW_T2D_vs_OW_Ctrl_all.csv: padj
+    tables/03_primary_BMI25_pathways/BMI25_Total_T2D_vs_HC_all.csv: padj
+  model_contract: []
+  standardize: []
+  requires_external_reference: yes
+  required_for_publication: yes
+  expected_output_files:
+  - file: tables/03_primary_BMI25_pathways/BMI25_NonOW_T2D_vs_NonOW_Ctrl_all.csv
+    n_rows: 5572
+    formal_q_column: padj
+    expected_significant: 133
+  - file: tables/03_primary_BMI25_pathways/BMI25_OW_Ctrl_vs_NonOW_Ctrl_all.csv
+    n_rows: 5572
+    formal_q_column: padj
+    expected_significant: 0
+  - file: tables/03_primary_BMI25_pathways/BMI25_OW_T2D_vs_NonOW_T2D_all.csv
+    n_rows: 5573
+    formal_q_column: padj
+    expected_significant: 20
+  - file: tables/03_primary_BMI25_pathways/BMI25_OW_T2D_vs_OW_Ctrl_all.csv
+    n_rows: 5573
+    formal_q_column: padj
+    expected_significant: 0
+  - file: tables/03_primary_BMI25_pathways/BMI25_Total_T2D_vs_HC_all.csv
+    n_rows: 5573
+    formal_q_column: padj
+    expected_significant: 13
+- module_id: pooled_pathways
+  file: 03a_pooled_MaAsLin2_pathways.R
+  function_name: run_pooled_pathways
+  formal_or_sensitivity: formal_or_supporting
+  expected_tested:
+    tables/03a_pooled_MaAsLin2_pathways/Model_result_summary.csv: 1
+    tables/03a_pooled_MaAsLin2_pathways/numeric_checks.csv: 3
+    tables/03a_pooled_MaAsLin2_pathways/Pooled_pathways_all.csv: 5945
+  expected_significant:
+    tables/03a_pooled_MaAsLin2_pathways/Pooled_pathways_all.csv: 1641
+  formal_q_column:
+    tables/03a_pooled_MaAsLin2_pathways/Pooled_pathways_all.csv: qval
+  model_contract:
+  - file: models/03a_pooled_MaAsLin2_pathways/MaAsLin2/model_contract/parameters.csv
+    parameters:
+      fixed_effects: disease + BMI + age + sex + study_name
+      random_effects: ''
+      references: disease,control;sex,female;study_name,MetaCardis_2020_a
+      standardize: 'TRUE'
+      normalization: TSS
+      transform: LOG
+      min_prevalence: '0.1'
+      Maaslin2_version: 1.22.0
+  standardize: 'TRUE'
+  requires_external_reference: yes
+  required_for_publication: yes
+  expected_output_files:
+  - file: tables/03a_pooled_MaAsLin2_pathways/Model_result_summary.csv
+    n_rows: 1
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/03a_pooled_MaAsLin2_pathways/numeric_checks.csv
+    n_rows: 3
+    formal_q_column: ~
+    expected_significant: ~
+    named_numeric_checks:
+      tested_5945: 5945
+      new_fixed_study_full_model_q: 1641
+      new_fixed_study_target_BH_audit: 1425
+  - file: tables/03a_pooled_MaAsLin2_pathways/Pooled_pathways_all.csv
+    n_rows: 5945
+    formal_q_column: qval
+    expected_significant: 1641
+- module_id: primary_diversity
+  file: 04_primary_diversity.R
+  function_name: run_primary_diversity
+  formal_or_sensitivity: formal_or_supporting
+  expected_tested:
+    tables/04_primary_diversity/BMI25_alpha_LMM_summary.csv: 2
+    tables/04_primary_diversity/BMI25_alpha_per_sample.csv: 1186
+    tables/04_primary_diversity/BMI25_alpha_richness_pairwise.csv: 6
+    tables/04_primary_diversity/BMI25_alpha_shannon_pairwise.csv: 6
+    tables/04_primary_diversity/BMI25_batch_effect_permanova.csv: 2
+    tables/04_primary_diversity/BMI25_beta_feature_manifest.csv: 138
+    tables/04_primary_diversity/BMI25_beta_PCoA_coordinates.csv: 1182
+    tables/04_primary_diversity/BMI25_beta_permanova_global.csv: 3
+    tables/04_primary_diversity/BMI25_beta_sample_manifest.csv: 1182
+    tables/04_primary_diversity/BMI25_PERMANOVA_stratified_by_study.csv: 5
+    tables/04_primary_diversity/BMI25_Table_PERMANOVA_Stratified_Robustness.csv: 5
+  expected_significant: {}
+  formal_q_column: {}
+  model_contract: []
+  standardize: []
+  requires_external_reference: yes
+  required_for_publication: yes
+  expected_output_files:
+  - file: tables/04_primary_diversity/BMI25_alpha_LMM_summary.csv
+    n_rows: 2
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/04_primary_diversity/BMI25_alpha_per_sample.csv
+    n_rows: 1186
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/04_primary_diversity/BMI25_alpha_richness_pairwise.csv
+    n_rows: 6
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/04_primary_diversity/BMI25_alpha_shannon_pairwise.csv
+    n_rows: 6
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/04_primary_diversity/BMI25_batch_effect_permanova.csv
+    n_rows: 2
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/04_primary_diversity/BMI25_beta_feature_manifest.csv
+    n_rows: 138
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/04_primary_diversity/BMI25_beta_PCoA_coordinates.csv
+    n_rows: 1182
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/04_primary_diversity/BMI25_beta_permanova_global.csv
+    n_rows: 3
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/04_primary_diversity/BMI25_beta_sample_manifest.csv
+    n_rows: 1182
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/04_primary_diversity/BMI25_PERMANOVA_stratified_by_study.csv
+    n_rows: 5
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/04_primary_diversity/BMI25_Table_PERMANOVA_Stratified_Robustness.csv
+    n_rows: 5
+    formal_q_column: ~
+    expected_significant: ~
+- module_id: diversity_interactions
+  file: 04_primary_diversity.R
+  function_name: run_diversity_interactions
+  formal_or_sensitivity: formal_or_supporting
+  expected_tested:
+    tables/05_diversity_interactions/alpha_BMI25_all.csv: 2
+    tables/05_diversity_interactions/alpha_BMI_centered_all.csv: 2
+    tables/05_diversity_interactions/beta_BMI25_all_terms.csv: 8
+    tables/05_diversity_interactions/beta_BMI_centered_all_terms.csv: 8
+    tables/05_diversity_interactions/beta_interaction_summary.csv: 2
+    tables/05_diversity_interactions/beta_retained_feature_ids.csv: 138
+    tables/05_diversity_interactions/beta_retained_sample_ids.csv: 1182
+  expected_significant: {}
+  formal_q_column: {}
+  model_contract: []
+  standardize: []
+  requires_external_reference: yes
+  required_for_publication: yes
+  expected_output_files:
+  - file: tables/05_diversity_interactions/alpha_BMI25_all.csv
+    n_rows: 2
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/05_diversity_interactions/alpha_BMI_centered_all.csv
+    n_rows: 2
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/05_diversity_interactions/beta_BMI25_all_terms.csv
+    n_rows: 8
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/05_diversity_interactions/beta_BMI_centered_all_terms.csv
+    n_rows: 8
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/05_diversity_interactions/beta_interaction_summary.csv
+    n_rows: 2
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/05_diversity_interactions/beta_retained_feature_ids.csv
+    n_rows: 138
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/05_diversity_interactions/beta_retained_sample_ids.csv
+    n_rows: 1182
+    formal_q_column: ~
+    expected_significant: ~
+- module_id: bmi23_species
+  file: 07_BMI23_sensitivity.R
+  function_name: run_bmi23_species
+  formal_or_sensitivity: sensitivity
+  expected_tested:
+    tables/07_BMI23_sensitivity/NT2D_vs_NC_BMI23_all.csv: 192
+    tables/07_BMI23_sensitivity/OC_vs_NC_BMI23_all.csv: 193
+    tables/07_BMI23_sensitivity/OT2D_vs_NT2D_BMI23_all.csv: 190
+    tables/07_BMI23_sensitivity/OT2D_vs_OC_BMI23_all.csv: 190
+  expected_significant:
+    tables/07_BMI23_sensitivity/NT2D_vs_NC_BMI23_all.csv: 28
+    tables/07_BMI23_sensitivity/OC_vs_NC_BMI23_all.csv: 7
+    tables/07_BMI23_sensitivity/OT2D_vs_NT2D_BMI23_all.csv: 3
+    tables/07_BMI23_sensitivity/OT2D_vs_OC_BMI23_all.csv: 14
+  formal_q_column:
+    tables/07_BMI23_sensitivity/NT2D_vs_NC_BMI23_all.csv: qval
+    tables/07_BMI23_sensitivity/OC_vs_NC_BMI23_all.csv: qval
+    tables/07_BMI23_sensitivity/OT2D_vs_NT2D_BMI23_all.csv: qval
+    tables/07_BMI23_sensitivity/OT2D_vs_OC_BMI23_all.csv: qval
+  model_contract:
+  - file: models/07_BMI23_sensitivity/NT2D_vs_NC_BMI23/MaAsLin2/model_contract/parameters.csv
+    parameters:
+      fixed_effects: analysis_group_BMI23_adapted + age_numeric + sex + study_name
+      random_effects: ''
+      references: analysis_group_BMI23_adapted,Non_Overweight_Control;sex,female;study_name,MetaCardis_2020_a
+      standardize: 'TRUE'
+      normalization: TSS
+      transform: LOG
+      min_prevalence: '0.1'
+      Maaslin2_version: 1.22.0
+  - file: models/07_BMI23_sensitivity/OC_vs_NC_BMI23/MaAsLin2/model_contract/parameters.csv
+    parameters:
+      fixed_effects: analysis_group_BMI23_adapted + age_numeric + sex + study_name
+      random_effects: ''
+      references: analysis_group_BMI23_adapted,Non_Overweight_Control;sex,female;study_name,QinJ_2012
+      standardize: 'TRUE'
+      normalization: TSS
+      transform: LOG
+      min_prevalence: '0.1'
+      Maaslin2_version: 1.22.0
+  - file: models/07_BMI23_sensitivity/OT2D_vs_NT2D_BMI23/MaAsLin2/model_contract/parameters.csv
+    parameters:
+      fixed_effects: analysis_group_BMI23_adapted + age_numeric + sex + study_name
+        + antidiabetes_group
+      random_effects: ''
+      references: analysis_group_BMI23_adapted,Non_Overweight_T2D;sex,female;study_name,MetaCardis_2020_a;antidiabetes_group,Metformin
+      standardize: 'TRUE'
+      normalization: TSS
+      transform: LOG
+      min_prevalence: '0.1'
+      Maaslin2_version: 1.22.0
+  - file: models/07_BMI23_sensitivity/OT2D_vs_OC_BMI23/MaAsLin2/model_contract/parameters.csv
+    parameters:
+      fixed_effects: analysis_group_BMI23_adapted + age_numeric + sex + study_name
+      random_effects: ''
+      references: analysis_group_BMI23_adapted,Overweight_Control;sex,female;study_name,MetaCardis_2020_a
+      standardize: 'TRUE'
+      normalization: TSS
+      transform: LOG
+      min_prevalence: '0.1'
+      Maaslin2_version: 1.22.0
+  standardize:
+  - 'TRUE'
+  - 'TRUE'
+  - 'TRUE'
+  - 'TRUE'
+  requires_external_reference: yes
+  required_for_publication: yes
+  expected_output_files:
+  - file: tables/07_BMI23_sensitivity/NT2D_vs_NC_BMI23_all.csv
+    n_rows: 192
+    formal_q_column: qval
+    expected_significant: 28
+  - file: tables/07_BMI23_sensitivity/OC_vs_NC_BMI23_all.csv
+    n_rows: 193
+    formal_q_column: qval
+    expected_significant: 7
+  - file: tables/07_BMI23_sensitivity/OT2D_vs_NT2D_BMI23_all.csv
+    n_rows: 190
+    formal_q_column: qval
+    expected_significant: 3
+  - file: tables/07_BMI23_sensitivity/OT2D_vs_OC_BMI23_all.csv
+    n_rows: 190
+    formal_q_column: qval
+    expected_significant: 14
+- module_id: bmi23_interactions
+  file: 07_BMI23_sensitivity.R
+  function_name: run_bmi23_interactions
+  formal_or_sensitivity: sensitivity
+  expected_tested:
+    tables/07_BMI23_interactions/BMI23_pathways_all.csv: 5945
+    tables/07_BMI23_interactions/BMI23_species_all.csv: 200
+  expected_significant:
+    tables/07_BMI23_interactions/BMI23_pathways_all.csv: 0
+    tables/07_BMI23_interactions/BMI23_species_all.csv: 0
+  formal_q_column:
+    tables/07_BMI23_interactions/BMI23_pathways_all.csv: formal_q
+    tables/07_BMI23_interactions/BMI23_species_all.csv: formal_q
+  model_contract:
+  - file: models/07_BMI23_interactions/pathways/MaAsLin2/model_contract/parameters.csv
+    parameters:
+      fixed_effects: T2D_binary + BMI_adapted_binary + T2D_x_BMI_adapted + age_numeric
+        + sex + study_name
+      random_effects: ''
+      references: sex,female;study_name,MetaCardis_2020_a
+      standardize: 'FALSE'
+      normalization: TSS
+      transform: LOG
+      min_prevalence: '0'
+      Maaslin2_version: 1.22.0
+  - file: models/07_BMI23_interactions/species/MaAsLin2/model_contract/parameters.csv
+    parameters:
+      fixed_effects: T2D_binary + BMI_adapted_binary + T2D_x_BMI_adapted + age_numeric
+        + sex + study_name
+      random_effects: ''
+      references: sex,female;study_name,MetaCardis_2020_a
+      standardize: 'FALSE'
+      normalization: TSS
+      transform: LOG
+      min_prevalence: '0'
+      Maaslin2_version: 1.22.0
+  standardize:
+  - 'FALSE'
+  - 'FALSE'
+  requires_external_reference: yes
+  required_for_publication: yes
+  expected_output_files:
+  - file: tables/07_BMI23_interactions/BMI23_pathways_all.csv
+    n_rows: 5945
+    formal_q_column: formal_q
+    expected_significant: 0
+  - file: tables/07_BMI23_interactions/BMI23_species_all.csv
+    n_rows: 200
+    formal_q_column: formal_q
+    expected_significant: 0
+- module_id: bmi23_pathways
+  file: 07_BMI23_sensitivity.R
+  function_name: run_bmi23_pathways
+  formal_or_sensitivity: sensitivity
+  expected_tested:
+    tables/07_BMI23_pathways/BMI23_Lean_T2D_vs_Lean_Control_all.csv: 5571
+    tables/07_BMI23_pathways/BMI23_Overweight_T2D_vs_Overweight_Control_all.csv: 5573
+    tables/07_BMI23_pathways/BMI23_Overweight_vs_Lean_Controls_all.csv: 5573
+    tables/07_BMI23_pathways/BMI23_Overweight_vs_Lean_T2D_all.csv: 5571
+  expected_significant:
+    tables/07_BMI23_pathways/BMI23_Lean_T2D_vs_Lean_Control_all.csv: 6
+    tables/07_BMI23_pathways/BMI23_Overweight_T2D_vs_Overweight_Control_all.csv: 33
+    tables/07_BMI23_pathways/BMI23_Overweight_vs_Lean_Controls_all.csv: 0
+    tables/07_BMI23_pathways/BMI23_Overweight_vs_Lean_T2D_all.csv: 30
+  formal_q_column:
+    tables/07_BMI23_pathways/BMI23_Lean_T2D_vs_Lean_Control_all.csv: padj
+    tables/07_BMI23_pathways/BMI23_Overweight_T2D_vs_Overweight_Control_all.csv: padj
+    tables/07_BMI23_pathways/BMI23_Overweight_vs_Lean_Controls_all.csv: padj
+    tables/07_BMI23_pathways/BMI23_Overweight_vs_Lean_T2D_all.csv: padj
+  model_contract: []
+  standardize: []
+  requires_external_reference: yes
+  required_for_publication: yes
+  expected_output_files:
+  - file: tables/07_BMI23_pathways/BMI23_Lean_T2D_vs_Lean_Control_all.csv
+    n_rows: 5571
+    formal_q_column: padj
+    expected_significant: 6
+  - file: tables/07_BMI23_pathways/BMI23_Overweight_T2D_vs_Overweight_Control_all.csv
+    n_rows: 5573
+    formal_q_column: padj
+    expected_significant: 33
+  - file: tables/07_BMI23_pathways/BMI23_Overweight_vs_Lean_Controls_all.csv
+    n_rows: 5573
+    formal_q_column: padj
+    expected_significant: 0
+  - file: tables/07_BMI23_pathways/BMI23_Overweight_vs_Lean_T2D_all.csv
+    n_rows: 5571
+    formal_q_column: padj
+    expected_significant: 30
+- module_id: bmi23_diversity
+  file: 07_BMI23_diversity.R
+  function_name: run_bmi23_diversity
+  formal_or_sensitivity: sensitivity
+  expected_tested:
+    tables/07_BMI23_diversity/BMI23_Alpha_Descriptive_Statistics.csv: 8
+    tables/07_BMI23_diversity/BMI23_Alpha_Group_Overall_LRT.csv: 4
+    tables/07_BMI23_diversity/BMI23_Alpha_LMM_Coefficients.csv: 12
+    tables/07_BMI23_diversity/BMI23_Alpha_Pairwise_BH.csv: 12
+    tables/07_BMI23_diversity/BMI23_Alpha_SampleLevel_Data.csv: 1186
+    tables/07_BMI23_diversity/BMI23_Beta_Aitchison_PERMANOVA_Blocked.csv: 3
+    tables/07_BMI23_diversity/BMI23_Beta_Aitchison_PERMDISP.csv: 2
+    tables/07_BMI23_diversity/BMI23_Beta_Aitchison_PERMDISP_Permutation.csv: 2
+    tables/07_BMI23_diversity/BMI23_Beta_CLR_Excluded_Samples_Audit.csv: 4
+    tables/07_BMI23_diversity/BMI23_Beta_CLR_Retention_Audit.csv: 1
+    tables/07_BMI23_diversity/BMI23_Beta_ComBat_Exploratory_PERMANOVA.csv: 3
+  expected_significant: {}
+  formal_q_column: {}
+  model_contract: []
+  standardize: []
+  requires_external_reference: yes
+  required_for_publication: yes
+  expected_output_files:
+  - file: tables/07_BMI23_diversity/BMI23_Alpha_Descriptive_Statistics.csv
+    n_rows: 8
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/07_BMI23_diversity/BMI23_Alpha_Group_Overall_LRT.csv
+    n_rows: 4
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/07_BMI23_diversity/BMI23_Alpha_LMM_Coefficients.csv
+    n_rows: 12
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/07_BMI23_diversity/BMI23_Alpha_Pairwise_BH.csv
+    n_rows: 12
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/07_BMI23_diversity/BMI23_Alpha_SampleLevel_Data.csv
+    n_rows: 1186
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/07_BMI23_diversity/BMI23_Beta_Aitchison_PERMANOVA_Blocked.csv
+    n_rows: 3
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/07_BMI23_diversity/BMI23_Beta_Aitchison_PERMDISP.csv
+    n_rows: 2
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/07_BMI23_diversity/BMI23_Beta_Aitchison_PERMDISP_Permutation.csv
+    n_rows: 2
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/07_BMI23_diversity/BMI23_Beta_CLR_Excluded_Samples_Audit.csv
+    n_rows: 4
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/07_BMI23_diversity/BMI23_Beta_CLR_Retention_Audit.csv
+    n_rows: 1
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/07_BMI23_diversity/BMI23_Beta_ComBat_Exploratory_PERMANOVA.csv
+    n_rows: 3
+    formal_q_column: ~
+    expected_significant: ~
+- module_id: no_medication
+  file: 09_no_medication_covariate.R
+  function_name: run_no_medication_covariate
+  formal_or_sensitivity: sensitivity
+  expected_tested:
+    tables/09_no_medication_covariate/BMI23_all.csv: 190
+    tables/09_no_medication_covariate/BMI23_formal_q_lt_005.csv: 3
+    tables/09_no_medication_covariate/BMI25_all.csv: 190
+    tables/09_no_medication_covariate/BMI25_formal_q_lt_005.csv: 4
+  expected_significant:
+    tables/09_no_medication_covariate/BMI23_all.csv: 3
+    tables/09_no_medication_covariate/BMI25_all.csv: 4
+  formal_q_column:
+    tables/09_no_medication_covariate/BMI23_all.csv: qval
+    tables/09_no_medication_covariate/BMI25_all.csv: qval
+  model_contract:
+  - file: models/09_no_medication_covariate/BMI23/MaAsLin2/model_contract/parameters.csv
+    parameters:
+      fixed_effects: Group + age + sex + study_name
+      random_effects: ''
+      references: Group,Non_Overweight_T2D;sex,female;study_name,MetaCardis_2020_a
+      standardize: 'TRUE'
+      normalization: TSS
+      transform: LOG
+      min_prevalence: '0.1'
+      Maaslin2_version: 1.22.0
+  - file: models/09_no_medication_covariate/BMI25/MaAsLin2/model_contract/parameters.csv
+    parameters:
+      fixed_effects: Group + age + sex + study_name
+      random_effects: ''
+      references: Group,Non_Overweight_T2D;sex,female;study_name,MetaCardis_2020_a
+      standardize: 'TRUE'
+      normalization: TSS
+      transform: LOG
+      min_prevalence: '0.1'
+      Maaslin2_version: 1.22.0
+  standardize:
+  - 'TRUE'
+  - 'TRUE'
+  requires_external_reference: yes
+  required_for_publication: yes
+  expected_output_files:
+  - file: tables/09_no_medication_covariate/BMI23_all.csv
+    n_rows: 190
+    formal_q_column: qval
+    expected_significant: 3
+  - file: tables/09_no_medication_covariate/BMI23_formal_q_lt_005.csv
+    n_rows: 3
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/09_no_medication_covariate/BMI25_all.csv
+    n_rows: 190
+    formal_q_column: qval
+    expected_significant: 4
+  - file: tables/09_no_medication_covariate/BMI25_formal_q_lt_005.csv
+    n_rows: 4
+    formal_q_column: ~
+    expected_significant: ~
+- module_id: clr
+  file: 08_CLR_sensitivity.R
+  function_name: run_clr_sensitivity
+  formal_or_sensitivity: sensitivity
+  expected_tested:
+    tables/08_CLR_sensitivity/BMI23_adapted_Pathway_BMI23_Formal_Interaction_all.csv: 5945
+    tables/08_CLR_sensitivity/BMI23_adapted_Taxonomy_BMI23_Formal_Interaction_all.csv: 200
+    tables/08_CLR_sensitivity/BMI25_Pathway_BMI25_Formal_Interaction_all.csv: 5945
+    tables/08_CLR_sensitivity/BMI25_Pathway_Lean_T2D_vs_Lean_Control_all.csv: 5812
+    tables/08_CLR_sensitivity/BMI25_Pathway_Overweight_T2D_vs_Overweight_Control_all.csv: 5237
+    tables/08_CLR_sensitivity/BMI25_Pathway_Overweight_vs_Lean_Controls_all.csv: 5822
+    tables/08_CLR_sensitivity/BMI25_Pathway_Overweight_vs_Lean_T2D_all.csv: 5488
+    tables/08_CLR_sensitivity/BMI25_Pathway_Total_T2D_vs_control_all.csv: 5945
+    tables/08_CLR_sensitivity/BMI25_Taxonomy_BMI25_Formal_Interaction_all.csv: 200
+    tables/08_CLR_sensitivity/BMI25_Taxonomy_Lean_T2D_vs_Lean_Control_all.csv: 192
+    tables/08_CLR_sensitivity/BMI25_Taxonomy_Overweight_T2D_vs_Overweight_Control_all.csv: 187
+    tables/08_CLR_sensitivity/BMI25_Taxonomy_Overweight_vs_Lean_Controls_all.csv: 193
+    tables/08_CLR_sensitivity/BMI25_Taxonomy_Overweight_vs_Lean_T2D_all.csv: 190
+    tables/08_CLR_sensitivity/BMI25_Taxonomy_Total_T2D_vs_control_all.csv: 200
+    tables/08_CLR_sensitivity/continuous_BMI_Pathway_ContinuousBMI_Formal_Interaction_all.csv: 5945
+    tables/08_CLR_sensitivity/continuous_BMI_Taxonomy_ContinuousBMI_Formal_Interaction_all.csv: 200
+    tables/08_CLR_sensitivity/CLR_sample_metadata.csv: 1186
+    tables/08_CLR_sensitivity/CLR_model_contracts.csv: 16
+  expected_significant:
+    tables/08_CLR_sensitivity/BMI23_adapted_Pathway_BMI23_Formal_Interaction_all.csv: 0
+    tables/08_CLR_sensitivity/BMI23_adapted_Taxonomy_BMI23_Formal_Interaction_all.csv: 0
+    tables/08_CLR_sensitivity/BMI25_Pathway_BMI25_Formal_Interaction_all.csv: 0
+    tables/08_CLR_sensitivity/BMI25_Pathway_Lean_T2D_vs_Lean_Control_all.csv: 586
+    tables/08_CLR_sensitivity/BMI25_Pathway_Overweight_T2D_vs_Overweight_Control_all.csv: 1
+    tables/08_CLR_sensitivity/BMI25_Pathway_Overweight_vs_Lean_Controls_all.csv: 0
+    tables/08_CLR_sensitivity/BMI25_Pathway_Overweight_vs_Lean_T2D_all.csv: 0
+    tables/08_CLR_sensitivity/BMI25_Pathway_Total_T2D_vs_control_all.csv: 1291
+    tables/08_CLR_sensitivity/BMI25_Taxonomy_BMI25_Formal_Interaction_all.csv: 0
+    tables/08_CLR_sensitivity/BMI25_Taxonomy_Lean_T2D_vs_Lean_Control_all.csv: 20
+    tables/08_CLR_sensitivity/BMI25_Taxonomy_Overweight_T2D_vs_Overweight_Control_all.csv: 0
+    tables/08_CLR_sensitivity/BMI25_Taxonomy_Overweight_vs_Lean_Controls_all.csv: 0
+    tables/08_CLR_sensitivity/BMI25_Taxonomy_Overweight_vs_Lean_T2D_all.csv: 0
+    tables/08_CLR_sensitivity/BMI25_Taxonomy_Total_T2D_vs_control_all.csv: 64
+    tables/08_CLR_sensitivity/continuous_BMI_Pathway_ContinuousBMI_Formal_Interaction_all.csv: 0
+    tables/08_CLR_sensitivity/continuous_BMI_Taxonomy_ContinuousBMI_Formal_Interaction_all.csv: 0
+  formal_q_column:
+    tables/08_CLR_sensitivity/BMI23_adapted_Pathway_BMI23_Formal_Interaction_all.csv: qval_CLR_BH
+    tables/08_CLR_sensitivity/BMI23_adapted_Taxonomy_BMI23_Formal_Interaction_all.csv: qval_CLR_BH
+    tables/08_CLR_sensitivity/BMI25_Pathway_BMI25_Formal_Interaction_all.csv: qval_CLR_BH
+    tables/08_CLR_sensitivity/BMI25_Pathway_Lean_T2D_vs_Lean_Control_all.csv: qval_CLR_BH
+    tables/08_CLR_sensitivity/BMI25_Pathway_Overweight_T2D_vs_Overweight_Control_all.csv: qval_CLR_BH
+    tables/08_CLR_sensitivity/BMI25_Pathway_Overweight_vs_Lean_Controls_all.csv: qval_CLR_BH
+    tables/08_CLR_sensitivity/BMI25_Pathway_Overweight_vs_Lean_T2D_all.csv: qval_CLR_BH
+    tables/08_CLR_sensitivity/BMI25_Pathway_Total_T2D_vs_control_all.csv: qval_CLR_BH
+    tables/08_CLR_sensitivity/BMI25_Taxonomy_BMI25_Formal_Interaction_all.csv: qval_CLR_BH
+    tables/08_CLR_sensitivity/BMI25_Taxonomy_Lean_T2D_vs_Lean_Control_all.csv: qval_CLR_BH
+    tables/08_CLR_sensitivity/BMI25_Taxonomy_Overweight_T2D_vs_Overweight_Control_all.csv: qval_CLR_BH
+    tables/08_CLR_sensitivity/BMI25_Taxonomy_Overweight_vs_Lean_Controls_all.csv: qval_CLR_BH
+    tables/08_CLR_sensitivity/BMI25_Taxonomy_Overweight_vs_Lean_T2D_all.csv: qval_CLR_BH
+    tables/08_CLR_sensitivity/BMI25_Taxonomy_Total_T2D_vs_control_all.csv: qval_CLR_BH
+    tables/08_CLR_sensitivity/continuous_BMI_Pathway_ContinuousBMI_Formal_Interaction_all.csv: qval_CLR_BH
+    tables/08_CLR_sensitivity/continuous_BMI_Taxonomy_ContinuousBMI_Formal_Interaction_all.csv: qval_CLR_BH
+  model_contract: []
+  standardize: []
+  requires_external_reference: yes
+  required_for_publication: yes
+  expected_output_files:
+  - file: tables/08_CLR_sensitivity/BMI23_adapted_Pathway_BMI23_Formal_Interaction_all.csv
+    n_rows: 5945
+    formal_q_column: qval_CLR_BH
+    expected_significant: 0
+    acceptance_status: ACCEPTED_CLR_AUTHOR_REVIEW
+  - file: tables/08_CLR_sensitivity/BMI23_adapted_Taxonomy_BMI23_Formal_Interaction_all.csv
+    n_rows: 200
+    formal_q_column: qval_CLR_BH
+    expected_significant: 0
+    acceptance_status: ACCEPTED_CLR_AUTHOR_REVIEW
+  - file: tables/08_CLR_sensitivity/BMI25_Pathway_BMI25_Formal_Interaction_all.csv
+    n_rows: 5945
+    formal_q_column: qval_CLR_BH
+    expected_significant: 0
+  - file: tables/08_CLR_sensitivity/BMI25_Pathway_Lean_T2D_vs_Lean_Control_all.csv
+    n_rows: 5812
+    formal_q_column: qval_CLR_BH
+    expected_significant: 586
+  - file: tables/08_CLR_sensitivity/BMI25_Pathway_Overweight_T2D_vs_Overweight_Control_all.csv
+    n_rows: 5237
+    formal_q_column: qval_CLR_BH
+    expected_significant: 1
+  - file: tables/08_CLR_sensitivity/BMI25_Pathway_Overweight_vs_Lean_Controls_all.csv
+    n_rows: 5822
+    formal_q_column: qval_CLR_BH
+    expected_significant: 0
+  - file: tables/08_CLR_sensitivity/BMI25_Pathway_Overweight_vs_Lean_T2D_all.csv
+    n_rows: 5488
+    formal_q_column: qval_CLR_BH
+    expected_significant: 0
+  - file: tables/08_CLR_sensitivity/BMI25_Pathway_Total_T2D_vs_control_all.csv
+    n_rows: 5945
+    formal_q_column: qval_CLR_BH
+    expected_significant: 1291
+  - file: tables/08_CLR_sensitivity/BMI25_Taxonomy_BMI25_Formal_Interaction_all.csv
+    n_rows: 200
+    formal_q_column: qval_CLR_BH
+    expected_significant: 0
+  - file: tables/08_CLR_sensitivity/BMI25_Taxonomy_Lean_T2D_vs_Lean_Control_all.csv
+    n_rows: 192
+    formal_q_column: qval_CLR_BH
+    expected_significant: 20
+  - file: tables/08_CLR_sensitivity/BMI25_Taxonomy_Overweight_T2D_vs_Overweight_Control_all.csv
+    n_rows: 187
+    formal_q_column: qval_CLR_BH
+    expected_significant: 0
+  - file: tables/08_CLR_sensitivity/BMI25_Taxonomy_Overweight_vs_Lean_Controls_all.csv
+    n_rows: 193
+    formal_q_column: qval_CLR_BH
+    expected_significant: 0
+  - file: tables/08_CLR_sensitivity/BMI25_Taxonomy_Overweight_vs_Lean_T2D_all.csv
+    n_rows: 190
+    formal_q_column: qval_CLR_BH
+    expected_significant: 0
+    acceptance_status: ACCEPTED_CLR_AUTHOR_REVIEW
+  - file: tables/08_CLR_sensitivity/BMI25_Taxonomy_Total_T2D_vs_control_all.csv
+    n_rows: 200
+    formal_q_column: qval_CLR_BH
+    expected_significant: 64
+  - file: tables/08_CLR_sensitivity/continuous_BMI_Pathway_ContinuousBMI_Formal_Interaction_all.csv
+    n_rows: 5945
+    formal_q_column: qval_CLR_BH
+    expected_significant: 0
+  - file: tables/08_CLR_sensitivity/continuous_BMI_Taxonomy_ContinuousBMI_Formal_Interaction_all.csv
+    n_rows: 200
+    formal_q_column: qval_CLR_BH
+    expected_significant: 0
+  - file: tables/08_CLR_sensitivity/CLR_sample_metadata.csv
+    n_rows: 1186
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/08_CLR_sensitivity/CLR_model_contracts.csv
+    n_rows: 16
+    formal_q_column: ~
+    expected_significant: ~
+  revision_note: Author-approved medication/adapted-BMI23 correction. Three changed
+    result families require new result review; no old significant count is imposed.
+- module_id: metadata_audit
+  file: 11_metadata_medication_audit.R
+  function_name: run_metadata_medication_audit
+  formal_or_sensitivity: formal_or_supporting
+  expected_tested:
+    tables/11_metadata_medication_audit/availability/01_FieldDictionary.csv: 30
+    tables/11_metadata_medication_audit/availability/02_FieldAvailability_ByCohortDisease.csv: 300
+    tables/11_metadata_medication_audit/availability/03_FieldAvailability_ByCohort.csv: 150
+    tables/11_metadata_medication_audit/availability/04_SampleLevel_FieldStatus_Long.csv: 35580
+    tables/11_metadata_medication_audit/availability/05_ModelCovariate_Completeness.csv: 90
+    tables/11_metadata_medication_audit/availability/06_MedicationText_SampleLevel.csv: 1186
+    tables/11_metadata_medication_audit/availability/07_MedicationText_ByCohortDisease.csv: 10
+    tables/11_metadata_medication_audit/availability/08_SourceVerification_Template.csv: 150
+    tables/11_metadata_medication_audit/availability/09_ManuscriptAvailability_Summary_Draft.csv: 30
+    tables/11_metadata_medication_audit/availability/10_InclusionAndStudyAudit.csv: 10
+    tables/11_metadata_medication_audit/availability/12_AllMetadataColumns_Inventory.csv: 152
+    tables/11_metadata_medication_audit/availability/13_AllFields_ByCohort.csv: 760
+    tables/11_metadata_medication_audit/availability/14_AllFields_ByCohortDisease.csv: 1520
+    tables/11_metadata_medication_audit/availability/15_ConceptSearch_Dictionary.csv: 36
+    tables/11_metadata_medication_audit/availability/16_ColumnName_Candidates.csv: 63
+    tables/11_metadata_medication_audit/availability/17_UncuratedMetadata_SampleLevel.csv: 1186
+    tables/11_metadata_medication_audit/availability/18_FreeText_KeywordEvidence.csv: 469
+    tables/11_metadata_medication_audit/availability/19_ConceptSearch_ByCohort.csv: 180
+    tables/11_metadata_medication_audit/availability/20_FieldProvenanceAndSourceAlignment.csv: 152
+    tables/11_metadata_medication_audit/availability/21_ValidationChecks.csv: 17
+    tables/11_metadata_medication_audit/medication/BMI25_Medication_Audit_Completeness_ByStudy_Disease.csv: 10
+    tables/11_metadata_medication_audit/medication/BMI25_Medication_Audit_Completeness_ByStudy_Disease_BMI25.csv: 20
+    tables/11_metadata_medication_audit/medication/BMI25_Medication_Audit_Completeness_ByStudy_Disease_BMI3.csv: 29
+    tables/11_metadata_medication_audit/medication/BMI25_Medication_Audit_Counts_ByStudy_Disease_BMI25.csv: 53
+    tables/11_metadata_medication_audit/medication/BMI25_Medication_Audit_Counts_ByStudy_Disease_BMI3.csv: 75
+    tables/11_metadata_medication_audit/medication/BMI25_Medication_Audit_RawTreatment_Crosswalk.csv: 373
+    tables/11_metadata_medication_audit/medication/BMI25_Medication_Audit_SampleManifest.csv: 1186
+  expected_significant: {}
+  formal_q_column: {}
+  model_contract: []
+  standardize: []
+  requires_external_reference: yes
+  required_for_publication: yes
+  expected_output_files:
+  - file: tables/11_metadata_medication_audit/availability/01_FieldDictionary.csv
+    n_rows: 30
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/11_metadata_medication_audit/availability/02_FieldAvailability_ByCohortDisease.csv
+    n_rows: 300
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/11_metadata_medication_audit/availability/03_FieldAvailability_ByCohort.csv
+    n_rows: 150
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/11_metadata_medication_audit/availability/04_SampleLevel_FieldStatus_Long.csv
+    n_rows: 35580
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/11_metadata_medication_audit/availability/05_ModelCovariate_Completeness.csv
+    n_rows: 90
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/11_metadata_medication_audit/availability/06_MedicationText_SampleLevel.csv
+    n_rows: 1186
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/11_metadata_medication_audit/availability/07_MedicationText_ByCohortDisease.csv
+    n_rows: 10
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/11_metadata_medication_audit/availability/08_SourceVerification_Template.csv
+    n_rows: 150
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/11_metadata_medication_audit/availability/09_ManuscriptAvailability_Summary_Draft.csv
+    n_rows: 30
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/11_metadata_medication_audit/availability/10_InclusionAndStudyAudit.csv
+    n_rows: 10
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/11_metadata_medication_audit/availability/12_AllMetadataColumns_Inventory.csv
+    n_rows: 152
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/11_metadata_medication_audit/availability/13_AllFields_ByCohort.csv
+    n_rows: 760
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/11_metadata_medication_audit/availability/14_AllFields_ByCohortDisease.csv
+    n_rows: 1520
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/11_metadata_medication_audit/availability/15_ConceptSearch_Dictionary.csv
+    n_rows: 36
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/11_metadata_medication_audit/availability/16_ColumnName_Candidates.csv
+    n_rows: 63
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/11_metadata_medication_audit/availability/17_UncuratedMetadata_SampleLevel.csv
+    n_rows: 1186
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/11_metadata_medication_audit/availability/18_FreeText_KeywordEvidence.csv
+    n_rows: 469
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/11_metadata_medication_audit/availability/19_ConceptSearch_ByCohort.csv
+    n_rows: 180
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/11_metadata_medication_audit/availability/20_FieldProvenanceAndSourceAlignment.csv
+    n_rows: 152
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/11_metadata_medication_audit/availability/21_ValidationChecks.csv
+    n_rows: 17
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/11_metadata_medication_audit/medication/BMI25_Medication_Audit_Completeness_ByStudy_Disease.csv
+    n_rows: 10
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/11_metadata_medication_audit/medication/BMI25_Medication_Audit_Completeness_ByStudy_Disease_BMI25.csv
+    n_rows: 20
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/11_metadata_medication_audit/medication/BMI25_Medication_Audit_Completeness_ByStudy_Disease_BMI3.csv
+    n_rows: 29
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/11_metadata_medication_audit/medication/BMI25_Medication_Audit_Counts_ByStudy_Disease_BMI25.csv
+    n_rows: 53
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/11_metadata_medication_audit/medication/BMI25_Medication_Audit_Counts_ByStudy_Disease_BMI3.csv
+    n_rows: 75
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/11_metadata_medication_audit/medication/BMI25_Medication_Audit_RawTreatment_Crosswalk.csv
+    n_rows: 373
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/11_metadata_medication_audit/medication/BMI25_Medication_Audit_SampleManifest.csv
+    n_rows: 1186
+    formal_q_column: ~
+    expected_significant: ~
+- module_id: sample_flow
+  file: 01b_sample_flow.R
+  function_name: run_sample_flow
+  formal_or_sensitivity: formal_or_supporting
+  expected_tested:
+    tables/01b_sample_flow/BMI25_BMI23_pre_QC_flow.csv: 6
+    tables/01b_sample_flow/BMI25_pre_QC_cells.csv: 102
+  expected_significant: {}
+  formal_q_column: {}
+  model_contract: []
+  standardize: []
+  requires_external_reference: yes
+  required_for_publication: yes
+  expected_output_files:
+  - file: tables/01b_sample_flow/BMI25_BMI23_pre_QC_flow.csv
+    n_rows: 6
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/01b_sample_flow/BMI25_pre_QC_cells.csv
+    n_rows: 102
+    formal_q_column: ~
+    expected_significant: ~
+- module_id: alpha_details
+  file: 04d_alpha_details.R
+  function_name: run_alpha_details
+  formal_or_sensitivity: formal_or_supporting
+  expected_tested:
+    tables/04d_alpha_details/BMI25_alpha_LMM_fixed_coefficients.csv: 22
+    tables/04d_alpha_details/BMI25_alpha_LMM_variance_components.csv: 8
+  expected_significant: {}
+  formal_q_column: {}
+  model_contract: []
+  standardize: []
+  requires_external_reference: yes
+  required_for_publication: yes
+  expected_output_files:
+  - file: tables/04d_alpha_details/BMI25_alpha_LMM_fixed_coefficients.csv
+    n_rows: 22
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/04d_alpha_details/BMI25_alpha_LMM_variance_components.csv
+    n_rows: 8
+    formal_q_column: ~
+    expected_significant: ~
+- module_id: raw_beta
+  file: 04c_raw_Aitchison_diversity.R
+  function_name: run_raw_aitchison_diversity
+  formal_or_sensitivity: formal_or_supporting
+  expected_tested:
+    tables/04c_raw_Aitchison/BMI25_raw_Aitchison_excluded_samples.csv: 4
+    tables/04c_raw_Aitchison/BMI25_raw_Aitchison_feature_manifest.csv: 138
+    tables/04c_raw_Aitchison/BMI25_raw_Aitchison_PCoA_coordinates.csv: 1182
+    tables/04c_raw_Aitchison/BMI25_raw_Aitchison_PERMANOVA_by_cohort.csv: 5
+    tables/04c_raw_Aitchison/BMI25_raw_Aitchison_PERMANOVA_four_groups_blocked.csv: 6
+    tables/04c_raw_Aitchison/BMI25_raw_Aitchison_PERMANOVA_total_blocked.csv: 7
+    tables/04c_raw_Aitchison/BMI25_raw_Aitchison_PERMDISP_disease.csv: 2
+    tables/04c_raw_Aitchison/BMI25_raw_Aitchison_PERMDISP_four_groups.csv: 2
+    tables/04c_raw_Aitchison/BMI25_raw_Aitchison_sample_manifest.csv: 1182
+  expected_significant: {}
+  formal_q_column: {}
+  model_contract: []
+  standardize: []
+  requires_external_reference: yes
+  required_for_publication: yes
+  expected_output_files:
+  - file: tables/04c_raw_Aitchison/BMI25_raw_Aitchison_excluded_samples.csv
+    n_rows: 4
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/04c_raw_Aitchison/BMI25_raw_Aitchison_feature_manifest.csv
+    n_rows: 138
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/04c_raw_Aitchison/BMI25_raw_Aitchison_PCoA_coordinates.csv
+    n_rows: 1182
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/04c_raw_Aitchison/BMI25_raw_Aitchison_PERMANOVA_by_cohort.csv
+    n_rows: 5
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/04c_raw_Aitchison/BMI25_raw_Aitchison_PERMANOVA_four_groups_blocked.csv
+    n_rows: 6
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/04c_raw_Aitchison/BMI25_raw_Aitchison_PERMANOVA_total_blocked.csv
+    n_rows: 7
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/04c_raw_Aitchison/BMI25_raw_Aitchison_PERMDISP_disease.csv
+    n_rows: 2
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/04c_raw_Aitchison/BMI25_raw_Aitchison_PERMDISP_four_groups.csv
+    n_rows: 2
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/04c_raw_Aitchison/BMI25_raw_Aitchison_sample_manifest.csv
+    n_rows: 1182
+    formal_q_column: ~
+    expected_significant: ~
+- module_id: medication_sensitivity
+  file: 09b_medication_sensitivity.R
+  function_name: run_medication_sensitivity
+  formal_or_sensitivity: sensitivity
+  expected_tested:
+    tables/09b_medication_sensitivity/BMI23_adjusted_all.csv: 190
+    tables/09b_medication_sensitivity/BMI23_adjusted_only.csv: 0
+    tables/09b_medication_sensitivity/BMI23_adjusted_significant.csv: 3
+    tables/09b_medication_sensitivity/BMI23_coefficients_paired.csv: 190
+    tables/09b_medication_sensitivity/BMI23_concordance.csv: 1
+    tables/09b_medication_sensitivity/BMI23_shared_significant.csv: 3
+    tables/09b_medication_sensitivity/BMI23_unadjusted_all.csv: 190
+    tables/09b_medication_sensitivity/BMI23_unadjusted_significant.csv: 3
+    tables/09b_medication_sensitivity/BMI25_adjusted_all.csv: 190
+    tables/09b_medication_sensitivity/BMI25_adjusted_only.csv: 1
+    tables/09b_medication_sensitivity/BMI25_adjusted_significant.csv: 5
+    tables/09b_medication_sensitivity/BMI25_coefficients_paired.csv: 190
+    tables/09b_medication_sensitivity/BMI25_concordance.csv: 1
+    tables/09b_medication_sensitivity/BMI25_shared_significant.csv: 4
+    tables/09b_medication_sensitivity/BMI25_unadjusted_all.csv: 190
+    tables/09b_medication_sensitivity/BMI25_unadjusted_significant.csv: 4
+  expected_significant: {}
+  formal_q_column: {}
+  model_contract: []
+  standardize: []
+  requires_external_reference: yes
+  required_for_publication: yes
+  expected_output_files:
+  - file: tables/09b_medication_sensitivity/BMI23_adjusted_all.csv
+    n_rows: 190
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/09b_medication_sensitivity/BMI23_adjusted_only.csv
+    n_rows: 0
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/09b_medication_sensitivity/BMI23_adjusted_significant.csv
+    n_rows: 3
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/09b_medication_sensitivity/BMI23_coefficients_paired.csv
+    n_rows: 190
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/09b_medication_sensitivity/BMI23_concordance.csv
+    n_rows: 1
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/09b_medication_sensitivity/BMI23_shared_significant.csv
+    n_rows: 3
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/09b_medication_sensitivity/BMI23_unadjusted_all.csv
+    n_rows: 190
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/09b_medication_sensitivity/BMI23_unadjusted_significant.csv
+    n_rows: 3
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/09b_medication_sensitivity/BMI25_adjusted_all.csv
+    n_rows: 190
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/09b_medication_sensitivity/BMI25_adjusted_only.csv
+    n_rows: 1
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/09b_medication_sensitivity/BMI25_adjusted_significant.csv
+    n_rows: 5
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/09b_medication_sensitivity/BMI25_coefficients_paired.csv
+    n_rows: 190
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/09b_medication_sensitivity/BMI25_concordance.csv
+    n_rows: 1
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/09b_medication_sensitivity/BMI25_shared_significant.csv
+    n_rows: 4
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/09b_medication_sensitivity/BMI25_unadjusted_all.csv
+    n_rows: 190
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/09b_medication_sensitivity/BMI25_unadjusted_significant.csv
+    n_rows: 4
+    formal_q_column: ~
+    expected_significant: ~
+- module_id: abundant_taxa
+  file: 04b_abundant_taxa_exploratory.R
+  function_name: run_abundant_taxa_exploratory
+  formal_or_sensitivity: formal_or_supporting
+  expected_tested:
+    tables/04b_abundant_taxa/abundance_alignment_checks.csv: 6
+    tables/04b_abundant_taxa/abundant_taxa_analysis_summary.csv: 2
+    tables/04b_abundant_taxa/abundant_taxa_bracket_changes.csv: 72
+    tables/04b_abundant_taxa/abundant_taxa_emmeans_pairwise_all.csv: 72
+    tables/04b_abundant_taxa/abundant_taxa_emmeans_significant.csv: 4
+    tables/04b_abundant_taxa/abundant_taxa_LMM_coefficients.csv: 72
+    tables/04b_abundant_taxa/abundant_taxa_model_diagnostics.csv: 12
+    tables/04b_abundant_taxa/abundant_taxa_model_residuals.csv: 14232
+    tables/04b_abundant_taxa/abundant_taxa_sample_level_data.csv: 14232
+    tables/04b_abundant_taxa/abundant_taxa_variance_components.csv: 24
+    tables/04b_abundant_taxa/phylum_annotation_audit_KarlssonFH_2013.csv: 89
+    tables/04b_abundant_taxa/phylum_annotation_audit_MetaCardis_2020_a.csv: 139
+    tables/04b_abundant_taxa/phylum_annotation_audit_QinJ_2012.csv: 111
+    tables/04b_abundant_taxa/phylum_annotation_audit_SankaranarayananK_2015.csv: 56
+    tables/04b_abundant_taxa/phylum_annotation_audit_YuJ_2015.csv: 97
+    tables/04b_abundant_taxa/selected_top4_phyla.csv: 4
+    tables/04b_abundant_taxa/selected_top8_species.csv: 8
+    tables/04b_abundant_taxa/taxonomy_mapping.csv: 2795
+    tables/04b_abundant_taxa/taxonomy_resource_manifest.csv: 5
+  expected_significant: {}
+  formal_q_column: {}
+  model_contract: []
+  standardize: []
+  requires_external_reference: yes
+  required_for_publication: yes
+  expected_output_files:
+  - file: tables/04b_abundant_taxa/abundance_alignment_checks.csv
+    n_rows: 6
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/04b_abundant_taxa/abundant_taxa_analysis_summary.csv
+    n_rows: 2
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/04b_abundant_taxa/abundant_taxa_bracket_changes.csv
+    n_rows: 72
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/04b_abundant_taxa/abundant_taxa_emmeans_pairwise_all.csv
+    n_rows: 72
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/04b_abundant_taxa/abundant_taxa_emmeans_significant.csv
+    n_rows: 4
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/04b_abundant_taxa/abundant_taxa_LMM_coefficients.csv
+    n_rows: 72
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/04b_abundant_taxa/abundant_taxa_model_diagnostics.csv
+    n_rows: 12
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/04b_abundant_taxa/abundant_taxa_model_residuals.csv
+    n_rows: 14232
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/04b_abundant_taxa/abundant_taxa_sample_level_data.csv
+    n_rows: 14232
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/04b_abundant_taxa/abundant_taxa_variance_components.csv
+    n_rows: 24
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/04b_abundant_taxa/phylum_annotation_audit_KarlssonFH_2013.csv
+    n_rows: 89
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/04b_abundant_taxa/phylum_annotation_audit_MetaCardis_2020_a.csv
+    n_rows: 139
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/04b_abundant_taxa/phylum_annotation_audit_QinJ_2012.csv
+    n_rows: 111
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/04b_abundant_taxa/phylum_annotation_audit_SankaranarayananK_2015.csv
+    n_rows: 56
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/04b_abundant_taxa/phylum_annotation_audit_YuJ_2015.csv
+    n_rows: 97
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/04b_abundant_taxa/selected_top4_phyla.csv
+    n_rows: 4
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/04b_abundant_taxa/selected_top8_species.csv
+    n_rows: 8
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/04b_abundant_taxa/taxonomy_mapping.csv
+    n_rows: 2795
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/04b_abundant_taxa/taxonomy_resource_manifest.csv
+    n_rows: 5
+    formal_q_column: ~
+    expected_significant: ~
+- module_id: publication_display
+  file: 01c_publication_display_data.R
+  function_name: run_publication_display_data
+  formal_or_sensitivity: formal_or_supporting
+  expected_tested:
+    tables/01c_publication_display/BMI25_all_phylum_abundance.csv: 18
+    tables/01c_publication_display/BMI25_phylum_composition_sample_level.csv: 5930
+    tables/01c_publication_display/BMI25_phylum_total_audit.csv: 1186
+    tables/01c_publication_display/BMI25_species_composition_sample_level.csv: 10674
+    tables/01c_publication_display/BMI25_top4_alignment.csv: 1
+  expected_significant: {}
+  formal_q_column: {}
+  model_contract: []
+  standardize: []
+  requires_external_reference: yes
+  required_for_publication: yes
+  expected_output_files:
+  - file: tables/01c_publication_display/BMI25_all_phylum_abundance.csv
+    n_rows: 18
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/01c_publication_display/BMI25_phylum_composition_sample_level.csv
+    n_rows: 5930
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/01c_publication_display/BMI25_phylum_total_audit.csv
+    n_rows: 1186
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/01c_publication_display/BMI25_species_composition_sample_level.csv
+    n_rows: 10674
+    formal_q_column: ~
+    expected_significant: ~
+  - file: tables/01c_publication_display/BMI25_top4_alignment.csv
+    n_rows: 1
+    formal_q_column: ~
+    expected_significant: ~
+- module_id: publication_tables
+  formal_or_sensitivity: export
+  expected_tested: 16
+  expected_significant: ~
+  formal_q_column: ~
+  model_contract: saved results only
+  standardize: ~
+  requires_external_reference: no
+  required_for_publication: yes
+  expected_output_files: table_index.csv
+- module_id: publication_figures
+  formal_or_sensitivity: export
+  expected_tested: 40
+  expected_significant: ~
+  formal_q_column: ~
+  model_contract: saved results only
+  standardize: ~
+  requires_external_reference: no
+  required_for_publication: yes
+  expected_output_files: figure_index.csv
+absolute_tolerance: 1e-08
+pooled_absolute_tolerance: 1e-10
+pooled_relative_tolerance: 1e-07

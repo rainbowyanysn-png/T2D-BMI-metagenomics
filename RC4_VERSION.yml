@@ -1,0 +1,14 @@
+candidate_version: RC4
+status: pending_CLR_rerun_review_and_release_acceptance
+statistics_changed: true
+models_run_during_extraction: false
+figures_exported_during_extraction: false
+source_provenance: FinalIntegration integrated code snapshot
+
+latest_authorized_change: CLR medication alignment and cohort-adapted BMI23 interaction
+changed_statistical_implementation_files: [R/pipeline/08_CLR_sensitivity.R]
+CLR_new_results_accepted: false
+
+submission_output_revision: RC4_submission16_20261121
+submission_patch_statistics_changed: false
+submission_patch_author_export_pending: true

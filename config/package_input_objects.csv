@@ -1,0 +1,6 @@
+"package","package_version","object","content_hash_algorithm","sha256"
+"curatedMetagenomicData","3.16.1","sampleMetadata","SHA256_R_serialize_v2","8db7cef1308f0599042725f5d30f4e7d3fb533d70f233b36e6673eb12b39f3a9"
+"curatedMetagenomicData","3.16.1","resourceTitles","SHA256_R_serialize_v2","9932fcb3f5ac87ba10307b432b4cb08a29e4816bee3d27f047548cbbf0064550"
+"curatedMetagenomicData","3.16.1","phylogeneticTree","SHA256_R_serialize_v2","50bfe2468329b2001cb012ff303f8178111f36dcfaeb4510e530c6ef1bb2bd75"
+"curatedMetagenomicData","3.16.1","rowDataLong","SHA256_R_serialize_v2","91cfdff3b962d8c6959d36f1d1645c3853e46b1568b3a5d78c5a26ecadb21849"
+"curatedMetagenomicData","3.16.1","rowDataNCBI","SHA256_R_serialize_v2","b191e61565a557963865d5fcd1b06529ed584ce0fc978baa9880aeae7319ebe6"

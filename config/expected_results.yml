@@ -1,0 +1,85 @@
+inputs:
+  n_samples: 1186
+  n_t2d: 760
+  n_control: 426
+  n_cohorts: 5
+  n_species: 200
+  n_pathways: 5945
+  bmi25_t2d_non_overweight: 138
+  bmi25_t2d_overweight: 622
+  bmi23_t2d_non_overweight: 105
+  bmi23_t2d_overweight: 655
+additive:
+  t2d_term_bh: 62
+  bmi_term_bh: 27
+  bmi_positive: 10
+  bmi_negative: 17
+  both: 13
+  bmi_only: 14
+  t2d_maaslin_q: 69
+  bmi_maaslin_q: 36
+interactions:
+  bmi25_species: 0
+  bmi25_pathways: 0
+  continuous_species: 0
+  continuous_pathways: 0
+  bmi23_species: 0
+  bmi23_pathways: 0
+primary_bmi25_species:
+  total_t2d_vs_control: 69
+  nt2d_vs_nc: 32
+  ot2d_vs_oc: 10
+  oc_vs_nc: 4
+  ot2d_vs_nt2d: 5
+primary_bmi25_tested:
+  Total_T2D_vs_Control: 200
+  NT2D_vs_NC_BMI25: 192
+  OT2D_vs_OC_BMI25: 187
+  OC_vs_NC_BMI25: 193
+  OT2D_vs_NT2D_BMI25: 190
+no_medication:
+  bmi25_species: 4
+  bmi23_species: 3
+primary_bmi25_pathways:
+  Total_T2D_vs_HC: {n_tested: 5573, n_significant: 13}
+  NonOW_T2D_vs_NonOW_Ctrl: {n_tested: 5572, n_significant: 133}
+  OW_T2D_vs_OW_Ctrl: {n_tested: 5573, n_significant: 0}
+  OW_Ctrl_vs_NonOW_Ctrl: {n_tested: 5572, n_significant: 0}
+  OW_T2D_vs_NonOW_T2D: {n_tested: 5573, n_significant: 20}
+pooled_pathways:
+  n_samples: 1186
+  n_tested: 5945
+  full_model_q: 1641
+  disease_term_BH_audit: 1425
+  model: fixed_study
+  acceptance_status: accepted_and_frozen
+publication:
+  clinical_features: 20
+  clinical_tests: 60
+  clinical_significant: 24
+  main_panels: 29
+  supplementary_panels: 11
+  total_panels: 40
+  workbooks: 17
+  REML_overall_NT2D_shared: 4
+
+bmi23_species:
+  nt2d_vs_nc: 28
+  ot2d_vs_oc: 14
+  oc_vs_nc: 7
+  ot2d_vs_nt2d: 3
+bmi23_pathways:
+  nt2d_vs_nc: 6
+  ot2d_vs_oc: 33
+  oc_vs_nc: 0
+  ot2d_vs_nt2d: 30
+
+species_loco:
+  models: 25
+  all_result_rows: 5000
+  significant_records: 120
+  significant_species: 79
+  direction_stable_records: 115
+  no_reversal_species: 74
+  significant_in_at_least_four: 53
+  significant_in_all_five: 8

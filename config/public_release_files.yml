@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "include_root_files": [
+    ".gitignore",
+    ".Rprofile",
+    "CITATION.cff",
+    "LICENSE",
+    "renv.lock",
+    "data_manifest.csv",
+    "README.md",
+    "FINAL_INTEGRATION_README.md",
+    "METHODS_AND_OUTPUTS.md",
+    "RUN_ON_NEW_COMPUTER.md",
+    "RELEASE_CHECKLIST.md",
+    "run_all.R",
+    "run_publication_candidate.R",
+    "run_all_development.R",
+    "run_publication_updates.R",
+    "export_publication.R",
+    "validate_release.R",
+    "status.R",
+    "build_public_package.R",
+    "RC4_VERSION.yml",
+    "RC4_RUN_GUIDE.md",
+    "prepare_transfer.R",
+    "RC4_中文使用说明.md",
+    "diagnose_reml_warnings.R",
+    "VALIDATION_REPAIR.md",
+    "CLR_ALIGNMENT_GUIDE.md",
+    "review_rc4_release.R",
+    "audit_rc4_dependencies.R",
+    "RELEASE_REVIEW_AND_CLEAN_TEST.md",
+    "WORKBOOK_PATCH_RUN_GUIDE.md",
+    "preflight_publication.R",
+    "reconcile_publication_checkpoints.R",
+    "PUBLICATION_PREFLIGHT_AND_RECOVERY.md",
+    "validate_submission_output.R",
+    "SUBMISSION_OUTPUT_PATCH.md"
+  ],
+  "include_trees": [
+    "R",
+    "config",
+    "tests",
+    "data_raw"
+  ],
+  "exclude_paths": [
+    "preview_publication.R",
+    "PANEL_INTEGRATION_20261119.md",
+    "SENSITIVITY_FIGURE4_UPDATE.md",
+    "SFIG3_LABEL_AND_TIFF_UPDATE.md"
+  ],
+  "exclude_regex": [
+    "(^|/)(output|audit|data_derived|reference_results|renv|\\.git|inputs|internal_audit)(/|$)",
+    "(^|/)(preview[^/]*|export_review_preview|replace_[^/]*|resize_[^/]*|prepare_round[^/]*|render_round[^/]*|validate_round[^/]*)[.]R$",
+    "(^|/)[^/]*(\\.before_|\\.bak($|[.])|~$|[.]tmp$)",
+    "(^|/)(SENSITIVITY_FIGURE4_UPDATE|SFIG3_LABEL_AND_TIFF_UPDATE|PANEL_INTEGRATION_)[^/]*[.]md$"
+  ],
+  "required_entries": [
+    "run_all.R",
+    "run_publication_candidate.R",
+    "run_all_development.R",
+    "export_publication.R",
+    "validate_release.R"
+  ],
+  "inventory_files": [
+    "public_file_manifest.csv",
+    "public_file_sha256.csv"
+  ],
+  "inventory_note": "Inventory files are metadata copied alongside payload; they cannot hash themselves. All payload files are selected by this same policy for manifest generation and copying."
+}
